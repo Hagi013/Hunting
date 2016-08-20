@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="description" content="" />
+	<meta name="author" content="" />
+
+	<title>Find your favorite Model!!</title>
+
+	<!-- Bootstrap Core CSS -->
+	<link href="css/bootstrap.min.css" rel="stylesheet" />
+
+	<!-- Custom CSS -->
+	<link href="css/business-frontpage.css" rel="stylesheet" />
+
+	<!-- jQuery -->
+	<h:outputScript library="primefaces" name="jquery/jquery.js" />
+	<h:outputScript library="primefaces" name="jquery/jquery-plugins.js" />
+
+	<!-- Bootstrap Core JavaScript -->
+	<h:outputScript library="js" name="bootstrap.min.js" />
+
+</h:head>
+
+<h:body>
+
+	<ui:composition template="./application/template.xhtml">
+		<ui:define name="content">
+
+			<!-- Image Background Page Header -->
+			<!-- Note: The background image is set within the business-casual.css file. -->
+			<header class="business-header">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-12">
+							<h1 class="tagline">Check Your Favorite Fashion Model TimeLine!</h1>
+						</div>
+					</div>
+				</div>
+			</header>
+
+			<!-- Page Content -->
+			<div class="container">
+
+				<hr />
+				<div class="row">
+					<h:form>
+						<ui:repeat value="#{timeLineController.huntingModel.huntingTimeLines}" var="timeLine">
+							<div class="col-sm-1">
+								<p:graphicImage value="#{timeLineController.convertPic}"
+									style="width:100%;height:auto;max-height:500px;">
+									<f:param name="igTimeLine" value="#{timeLine.huntingTimeLineId}" />
+								</p:graphicImage>	
+								<h:outputText value="#{timeLine.huntingTimeLineId.userId}" />
+								<h:outputText value="#{timeLine.text}" />						
+							</div>
+						</ui:repeat>
+					</h:form>
+				</div>
+				<!-- /.row -->
+
+				<hr />
+
+				<div class="row">
+					<div class="col-sm-8">
+					</div>
+				</div>
+				<!-- /.row -->
+				<hr />
+			</div>
+			<!-- /.container -->
+		</ui:define>
+	</ui:composition>
+</h:body>
+
+</html>

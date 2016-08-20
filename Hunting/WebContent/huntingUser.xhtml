@@ -21,12 +21,12 @@
 	<!-- Custom CSS -->
 	<link href="css/business-frontpage.css" rel="stylesheet" />
 
-	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-	<!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+	<!-- jQuery -->
+	<h:outputScript library="primefaces" name="jquery/jquery.js" />
+	<h:outputScript library="primefaces" name="jquery/jquery-plugins.js" />
+
+	<!-- Bootstrap Core JavaScript -->
+	<h:outputScript library="js" name="bootstrap.min.js" />
 
 </h:head>
 
@@ -41,7 +41,7 @@
 				<div class="container">
 					<div class="row">
 						<div class="col-lg-12">
-							<h1 class="tagline">Business Name or Tagline</h1>
+							<h1 class="tagline">Check Your Favorite Fashion Model.</h1>
 						</div>
 					</div>
 				</div>
@@ -49,6 +49,39 @@
 
 			<!-- Page Content -->
 			<div class="container">
+
+				<hr />
+				<div class="row">
+					<h:form>
+						<!-- <h:dataTable value="#{modelListController.igModelList}"
+							var="model">
+							<h:column>
+								<p:graphicImage class="img-circle img-responsive img-center"
+									value="#{modelListController.convertPic}" width="30%"
+									height="30%">
+									<f:param name="igModelId" value="#{model.userId}" />
+								</p:graphicImage>
+							</h:column>
+						</h:dataTable> -->
+						<ui:repeat value="#{modelListController.igModelList}" var="model">
+							<div class="col-sm-4">
+								<h:commandLink action="#{timeLineController.moveToTimeLinePage}">
+									<p:graphicImage class="img-circle img-responsive img-center"
+										value="#{modelListController.convertPic}"
+										style="width:100%;height:auto;max-height:300px;">
+										<f:param name="igModelId" value="#{model.userId}" />
+									</p:graphicImage>
+								</h:commandLink>
+								<h2><h:outputText value="#{model.userId}" /></h2>
+								<p>The images are set to be circular and responsive. Fusce
+									dapibus, tellus ac cursus commodo, tortor mauris condimentum
+									nibh, ut fermentum massa justo sit amet risus. Etiam porta sem
+									malesuada magna mollis euismod. Donec sed odio dui.</p>
+							</div>
+						</ui:repeat>
+					</h:form>
+				</div>
+				<!-- /.row -->
 
 				<hr />
 
@@ -79,52 +112,11 @@
 					</div>
 				</div>
 				<!-- /.row -->
-
-				<hr />
-
-				<div class="row">
-					<div class="col-sm-4">
-						<img class="img-circle img-responsive img-center"
-							src="http://placehold.it/300x300" alt="" />
-						<h2>Marketing Box #1</h2>
-						<p>These marketing boxes are a great place to put some
-							information. These can contain summaries of what the company
-							does, promotional information, or anything else that is relevant
-							to the company. These will usually be below-the-fold.</p>
-					</div>
-					<div class="col-sm-4">
-						<img class="img-circle img-responsive img-center"
-							src="http://placehold.it/300x300" alt="" />
-						<h2>Marketing Box #2</h2>
-						<p>The images are set to be circular and responsive. Fusce
-							dapibus, tellus ac cursus commodo, tortor mauris condimentum
-							nibh, ut fermentum massa justo sit amet risus. Etiam porta sem
-							malesuada magna mollis euismod. Donec sed odio dui.</p>
-					</div>
-					<div class="col-sm-4">
-						<img class="img-circle img-responsive img-center"
-							src="http://placehold.it/300x300" alt="" />
-						<h2>Marketing Box #3</h2>
-						<p>Donec id elit non mi porta gravida at eget metus. Fusce
-							dapibus, tellus ac cursus commodo, tortor mauris condimentum
-							nibh, ut fermentum massa justo sit amet risus. Etiam porta sem
-							malesuada magna mollis euismod. Donec sed odio dui.</p>
-					</div>
-				</div>
-				<!-- /.row -->
-
 				<hr />
 			</div>
 			<!-- /.container -->
 		</ui:define>
 	</ui:composition>
-
-	<!-- jQuery -->
-	<script src="js/jquery.js"></script>
-
-	<!-- Bootstrap Core JavaScript -->
-	<script src="js/bootstrap.min.js"></script>
-
 </h:body>
 
 </html>
