@@ -26,7 +26,6 @@ public final class JsfManagedObjectFetcher {
 		ExternalContext exCon = con.getExternalContext();
 		
 		Map map = exCon.getRequestMap();
-		
 		return (E) map.get(entityName);
 	}
 	

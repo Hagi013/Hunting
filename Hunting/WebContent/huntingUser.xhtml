@@ -65,7 +65,7 @@
 						</h:dataTable> -->
 						<ui:repeat value="#{modelListController.igModelList}" var="model">
 							<div class="col-sm-4">
-								<h:commandLink action="#{timeLineController.moveToTimeLinePage}">
+								<h:commandLink action="#{timeLineController.moveToTimeLinePage(model)}">
 									<p:graphicImage class="img-circle img-responsive img-center"
 										value="#{modelListController.convertPic}"
 										style="width:100%;height:auto;max-height:300px;">

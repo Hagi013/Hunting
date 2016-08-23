@@ -38,7 +38,7 @@ public class HuntingTimeLine extends BaseEntity {
 	private String link;
 	
 	@Lob
-	@Basic(fetch=FetchType.LAZY)
+	//@Basic(fetch=FetchType.LAZY)
 	@Column(name="timeline_image")
 	private byte[] timeLineImage;
 	

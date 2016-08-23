@@ -7,8 +7,6 @@ import java.util.Optional;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.context.FacesContext;
-import javax.faces.event.PhaseId;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -25,14 +23,14 @@ import jp.co.hands.hunting.repository.impl.HuntingTimeLineRepository;
 import lombok.Getter;
 import lombok.Setter;
 
-@Named(value="timeLineController")
-@ManagedBean(name="timeLineController")
+@Named(value = "timeLineController")
+@ManagedBean(name = "timeLineController")
 @SessionScoped
 public class TimeLineController extends BaseController {
 
 	@Inject
 	private HuntingTimeLineRepository huntingTimeLineRepository;
-	
+
 	@Getter
 	@Setter
 	private HuntingModel huntingModel;
@@ -40,16 +38,22 @@ public class TimeLineController extends BaseController {
 	@Getter
 	@Setter
 	private HuntingTimeLine huntingTimeLine;
-	
+
 	@Getter
 	@Setter
 	private List<HuntingTimeLine> huntingTimeLineList;
-	
-	
-	
-	public String moveToTimeLinePage() {
 
-		huntingModel = JsfManagedObjectFetcher.getObject(HuntingModel.class, "model");
+	
+	@Getter
+	@Setter
+	private byte[] timeLineImage;
+	
+	
+	public String moveToTimeLinePage(HuntingModel targetModel) {
+
+		//huntingModel = JsfManagedObjectFetcher.getObject(HuntingModel.class, "model");
+		System.out.println("userId;    "+targetModel.getUserId());
+		huntingModel = targetModel;
 		if (Optional.ofNullable(huntingModel).isPresent()) {
 			return redirectTo("/huntingTimeLine");
 		}
@@ -63,21 +67,32 @@ public class TimeLineController extends BaseController {
 	 * @param return
 	 *            ds: DBから取得した画像データ
 	 */
-	public StreamedContent getConvertPic() {
+	public StreamedContent getConvertTimeLineImg(HuntingTimeLineId targetHuntingTimeLineId) {
 
-		HuntingTimeLineId targetHuntingTimeLineId = HuntingTimeLineId.builder().build();
-		HuntingTimeLine targetHuntingTimeLine = HuntingTimeLine.builder().build();
+		System.out.println("targetHuntingTimeLineId     "+targetHuntingTimeLineId);
+		if(targetHuntingTimeLineId == null) {
+			return new DefaultStreamedContent(new ByteArrayInputStream(this.timeLineImage));
+			//return new DefaultStreamedContent();
+		}
 
-		System.out.println("ちゃんと取れている1？");
-		targetHuntingTimeLineId = JsfManagedObjectFetcher.getObject(HuntingTimeLineId.class, "igTimeLine");
-		System.out.println("ちゃんと取れている2？"+targetHuntingTimeLineId.getUserId());
-		if (!Optional.ofNullable(targetHuntingTimeLine).isPresent()) {
+		//HuntingTimeLine targetHuntingTimeLine = HuntingTimeLine.builder().build();
+		//HuntingTimeLineId targetHuntingTimeLineId = JsfManagedObjectFetcher.<HuntingTimeLine>getObject(HuntingTimeLine.class,
+		//		"timeLine").getHuntingTimeLineId();
+		
+		/*HuntingTimeLine targetHuntingTimeLine = JsfManagedObjectFetcher.<HuntingTimeLine>getObject(HuntingTimeLine.class,
+						"timeLine");*/
+		//System.out.println("ちゃんと取れている1234？" + targetHuntingTimeLineId);
+		
+		/*if (!Optional.ofNullable(targetHuntingTimeLineId).isPresent()) {
 			addMessage(FacesMessage.SEVERITY_ERROR, "", "うまく選択ができていません。");
 			return null;
-		}
+		}*/
 		
-		targetHuntingTimeLine = huntingTimeLineRepository.findByKey(targetHuntingTimeLineId);				
-		return 	FetchPictureHelper.getConvertPic(targetHuntingTimeLine.getTimeLineImage());
+		HuntingTimeLine targetHuntingTimeLine = huntingTimeLineRepository.findByKey(targetHuntingTimeLineId);
+		System.out.println("ちゃんと取れている1234？" + targetHuntingTimeLineId);
+		System.out.println("ちゃんと取れている1235？" + targetHuntingTimeLine.getTimeLineImage());
+		this.timeLineImage = targetHuntingTimeLine.getTimeLineImage();
+		return FetchPictureHelper.getConvertPic(targetHuntingTimeLine.getTimeLineImage());
 
 	}
 

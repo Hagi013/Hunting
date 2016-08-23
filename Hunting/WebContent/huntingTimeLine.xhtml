@@ -13,13 +13,14 @@
 	<meta name="description" content="" />
 	<meta name="author" content="" />
 
-	<title>Find your favorite Model!!</title>
+	<title>Find your favorite TimeLine!!</title>
 
 	<!-- Bootstrap Core CSS -->
 	<link href="css/bootstrap.min.css" rel="stylesheet" />
 
 	<!-- Custom CSS -->
-	<link href="css/business-frontpage.css" rel="stylesheet" />
+	<link href="css/1-col-portfolio.css" rel="stylesheet" />
+
 
 	<!-- jQuery -->
 	<h:outputScript library="primefaces" name="jquery/jquery.js" />
@@ -41,7 +42,8 @@
 				<div class="container">
 					<div class="row">
 						<div class="col-lg-12">
-							<h1 class="tagline">Check Your Favorite Fashion Model TimeLine!</h1>
+							<h1 class="tagline">Check Your Favorite Fashion Model
+								TimeLine!</h1>
 						</div>
 					</div>
 				</div>
@@ -49,20 +51,32 @@
 
 			<!-- Page Content -->
 			<div class="container">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">
+							<i class="fa fa-bar-chart-o fa-fw"></i>
+							<h:outputText value="#{timeLineController.huntingModel.userId}" />
+						</h3>
+					</div>
 
+				</div>
 				<hr />
 				<div class="row">
 					<h:form>
-						<ui:repeat value="#{timeLineController.huntingModel.huntingTimeLines}" var="timeLine">
-							<div class="col-sm-1">
-								<p:graphicImage value="#{timeLineController.convertPic}"
-									style="width:100%;height:auto;max-height:500px;">
-									<f:param name="igTimeLine" value="#{timeLine.huntingTimeLineId}" />
-								</p:graphicImage>	
-								<h:outputText value="#{timeLine.huntingTimeLineId.userId}" />
-								<h:outputText value="#{timeLine.text}" />						
-							</div>
-						</ui:repeat>
+						<div class="col-sm-1">
+							<ui:repeat
+								value="#{timeLineController.huntingModel.huntingTimeLines}"
+								var="timeLine">
+								<p:graphicImage
+									value="#{timeLineController.getConvertTimeLineImg(timeLine.huntingTimeLineId)}"
+									style="width:500px;height:auto;max-height:500px;">
+									<f:param name="igTimeLineId"
+										value="#{timeLine.huntingTimeLineId}" />
+								</p:graphicImage>
+								<hr />
+								<h:outputText value="#{timeLine.text}" />
+							</ui:repeat>
+						</div>
 					</h:form>
 				</div>
 				<!-- /.row -->
@@ -70,10 +84,50 @@
 				<hr />
 
 				<div class="row">
-					<div class="col-sm-8">
+					<div class="col-sm-8"></div>
+				</div>
+				<!-- /.row -->
+				<hr />
+
+				<!-- Page Heading -->
+				<div class="row">
+					<div class="col-lg-12">
+						<h1 class="page-header">
+							Page Heading <small>Secondary Text</small>
+						</h1>
 					</div>
 				</div>
 				<!-- /.row -->
+
+				<!-- Project One -->
+				<div class="row">
+					<ui:repeat
+						value="#{timeLineController.huntingModel.huntingTimeLines}"
+						var="timeLine">
+
+						<div class="col-md-7">
+							<p:graphicImage
+								value="#{timeLineController.getConvertTimeLineImg(timeLine.huntingTimeLineId)}"
+								style="width:300px;height:auto;max-height:300px;">
+								<f:param name="igTimeLineId"
+									value="#{timeLine.huntingTimeLineId}" />
+							</p:graphicImage>
+						</div>
+						<div class="col-md-5">
+							<h3>Project One</h3>
+							<h4>Subheading</h4>
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+								Laudantium veniam exercitationem expedita laborum at voluptate.
+								Labore, voluptates totam at aut nemo deserunt rem magni pariatur
+								quos perspiciatis atque eveniet unde.</p>
+							<a class="btn btn-primary" href="#">View Project <span
+								class="glyphicon glyphicon-chevron-right"></span></a>
+						</div>
+						<hr />
+					</ui:repeat>
+				</div>
+				<!-- /.row -->
+
 				<hr />
 			</div>
 			<!-- /.container -->
