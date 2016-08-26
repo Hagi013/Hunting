@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.MappedSuperclass;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data

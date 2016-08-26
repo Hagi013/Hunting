@@ -31,28 +31,22 @@ public class TimeLineController extends BaseController {
 	@Inject
 	private HuntingTimeLineRepository huntingTimeLineRepository;
 
-	@Getter
-	@Setter
+	@Getter @Setter
 	private HuntingModel huntingModel;
 
-	@Getter
-	@Setter
+	@Getter @Setter
 	private HuntingTimeLine huntingTimeLine;
 
-	@Getter
-	@Setter
+	@Getter @Setter
 	private List<HuntingTimeLine> huntingTimeLineList;
 
 	
-	@Getter
-	@Setter
+	@Getter @Setter
 	private byte[] timeLineImage;
 	
 	
 	public String moveToTimeLinePage(HuntingModel targetModel) {
 
-		//huntingModel = JsfManagedObjectFetcher.getObject(HuntingModel.class, "model");
-		System.out.println("userId;    "+targetModel.getUserId());
 		huntingModel = targetModel;
 		if (Optional.ofNullable(huntingModel).isPresent()) {
 			return redirectTo("/huntingTimeLine");
@@ -72,28 +66,11 @@ public class TimeLineController extends BaseController {
 		System.out.println("targetHuntingTimeLineId     "+targetHuntingTimeLineId);
 		if(targetHuntingTimeLineId == null) {
 			return new DefaultStreamedContent(new ByteArrayInputStream(this.timeLineImage));
-			//return new DefaultStreamedContent();
 		}
 
-		//HuntingTimeLine targetHuntingTimeLine = HuntingTimeLine.builder().build();
-		//HuntingTimeLineId targetHuntingTimeLineId = JsfManagedObjectFetcher.<HuntingTimeLine>getObject(HuntingTimeLine.class,
-		//		"timeLine").getHuntingTimeLineId();
-		
-		/*HuntingTimeLine targetHuntingTimeLine = JsfManagedObjectFetcher.<HuntingTimeLine>getObject(HuntingTimeLine.class,
-						"timeLine");*/
-		//System.out.println("ちゃんと取れている1234？" + targetHuntingTimeLineId);
-		
-		/*if (!Optional.ofNullable(targetHuntingTimeLineId).isPresent()) {
-			addMessage(FacesMessage.SEVERITY_ERROR, "", "うまく選択ができていません。");
-			return null;
-		}*/
-		
 		HuntingTimeLine targetHuntingTimeLine = huntingTimeLineRepository.findByKey(targetHuntingTimeLineId);
-		System.out.println("ちゃんと取れている1234？" + targetHuntingTimeLineId);
-		System.out.println("ちゃんと取れている1235？" + targetHuntingTimeLine.getTimeLineImage());
 		this.timeLineImage = targetHuntingTimeLine.getTimeLineImage();
-		return FetchPictureHelper.getConvertPic(targetHuntingTimeLine.getTimeLineImage());
-
+		return FetchPictureHelper.getConvertPic(this.timeLineImage);
 	}
 
 }

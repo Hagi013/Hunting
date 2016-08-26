@@ -1,8 +1,10 @@
 package jp.co.hands.hunting.manage.controller;
 
+import java.io.ByteArrayInputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
-import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -10,13 +12,19 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.Part;
 
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 
+import jp.co.hands.hunting.application.helper.JsfManagedObjectFetcher;
 import jp.co.hands.hunting.controller.BaseController;
 import jp.co.hands.hunting.entity.model.impl.HuntingGoods;
+import jp.co.hands.hunting.entity.model.impl.HuntingGoodsImage;
 import jp.co.hands.hunting.entity.model.impl.HuntingModel;
 import jp.co.hands.hunting.entity.model.impl.HuntingTimeLine;
 import jp.co.hands.hunting.entity.model.impl.HuntingTimeLineId;
+import jp.co.hands.hunting.helper.fetcher.FetchPictureHelper;
 import jp.co.hands.hunting.manage.helper.UploadFileHundler;
+import jp.co.hands.hunting.repository.impl.HuntingGoodsRepository;
 import jp.co.hands.hunting.repository.impl.HuntingModelRepository;
 import jp.co.hands.hunting.repository.impl.HuntingTimeLineRepository;
 import lombok.Getter;
@@ -33,31 +41,67 @@ public class AdminRegistController extends BaseController {
 	@Inject
 	private HuntingTimeLineRepository huntingTimeLineRepository;
 	
+	@Inject
+	private HuntingGoodsRepository huntingGoodsRepository;
+	
 	@Getter @Setter
 	private HuntingModel huntingModel;
 
 	@Getter @Setter
+	private List<HuntingModel> huntingModelList;
+	
+	@Getter @Setter
 	private HuntingTimeLine huntingTimeLine;
+	
+	@Getter @Setter
+	private List<HuntingTimeLine> huntingTimeLineList;
 
 	@Getter @Setter
 	private HuntingGoods huntingGoods;
+	
+	@Getter @Setter
+	private HuntingGoodsImage huntingGoodsImage;
 
+	@Getter @Setter
+	private List<HuntingGoodsImage> huntingGoodsImageList;
+	
 	@Getter @Setter	
 	private Part uploadedFile;
 		
+	@Getter @Setter
+	private byte[] retainedImg;
 	
-	
-	@PostConstruct
-	public void init() {
-		
-		this.huntingModel = HuntingModel.builder().build();
-		this.huntingTimeLine = HuntingTimeLine.builder().huntingTimeLineId(HuntingTimeLineId.builder().build()).build();
-		
-	}
-		
 	
 	/** method area */
 
+	/**
+	 * モデルの登録ページへ移動
+	*/
+	public String gotoModelRegister() {
+		
+		this.huntingModel = HuntingModel.builder().build();
+		return redirectTo("/registerIGModel");
+	}
+
+	/**
+	 * タイムラインの登録ページへ移動
+	*/
+	public String gotoTimeLineRegister() {
+		
+		this.huntingTimeLine = HuntingTimeLine.builder().huntingTimeLineId(HuntingTimeLineId.builder().build()).build();
+		return redirectTo("/registerIGModelTimeLine");
+	}	
+	
+	/**
+	 * 商品登録ページへ移動
+	*/
+	public String gotoGoodsRegister() {
+		
+		this.huntingModelList = huntingModelRepository.findAll();	
+		return redirectTo("/selectModelBeforeRegisterGoods");
+	}
+	
+	
 	/**
 	 * Instagram のユーザを登録する
 	 *
@@ -92,52 +136,7 @@ public class AdminRegistController extends BaseController {
 		
 	}
 	
-	
-	
-	/*private HuntingModel uploadFileHundle(HuntingModel targetModel, Part target) {
-				
-		// byte型の配列を出力先とするクラス。
-		// 通常、バイト出力ストリームはファイルやソケットを出力先とするが、
-		// ByteArrayOutputStreamクラスはbyte[]変数、つまりメモリを出力先とする。
-		ByteArrayOutputStream modelImageByteArray = new ByteArrayOutputStream();
-
-		try {
-			InputStream modelImage = target.getInputStream();
-			int c;
-			while ((c = modelImage.read()) != -1) {
-				modelImageByteArray.write(c);
-			}
-
-		} catch (IOException e) {
-			// TODO 自動生成された catch ブロック
-			e.printStackTrace();
-		} finally {
-			if (modelImageByteArray != null) {
-
-				try {
-					modelImageByteArray.flush();
-					modelImageByteArray.close();
-
-				} catch (IOException e) {
-					// TODO 自動生成された catch ブロック
-					e.printStackTrace();
-				}
-			}
-		}
-
-		System.out.println(modelImageByteArray.toByteArray().toString());
 		
-		// 書き込み先はByteArrayOutputStreamクラス内部となる。
-		// この書き込まれたバイトデータをbyte型配列として取り出す場合には、
-		// toByteArray()メソッドを呼び出す。
-		targetModel.setProfilePicture(modelImageByteArray.toByteArray());
-
-		System.out.println("huntingModel:" + huntingModel.getProfilePicture());
-				
-		return targetModel;
-	}*/
-
-	
 	/**
 	 * Instagram ユーザのタイムラインを登録する
 	 *
@@ -165,6 +164,133 @@ public class AdminRegistController extends BaseController {
 		
 		addMessage(FacesMessage.SEVERITY_INFO, "", "登録が完了しました。");
 		
+	}
+
+	
+	
+	/**
+	 * モデルの画像を取得する
+	 * 
+	*/
+	public StreamedContent getConvertModelImg() {
+
+		String userId = JsfManagedObjectFetcher.getString("modelIdInAdmin");
+		System.out.println("userId:   "+userId);
+		this.huntingModel = JsfManagedObjectFetcher.getObject(HuntingModel.class, "model");
+		
+		/*if(huntingModel == null) {
+			System.out.println("通っている！！！！！");			
+			return new DefaultStreamedContent(new ByteArrayInputStream(this.retainedImg));
+		}*/
+		if(userId == null) {
+			System.out.println("通っている！！！！！");			
+			return new DefaultStreamedContent(new ByteArrayInputStream(this.retainedImg));
+		}
+		//this.retainedImg = huntingModel.getProfilePicture();
+		this.retainedImg = huntingModelRepository.findByKey(userId).getProfilePicture();
+		StreamedContent sc = FetchPictureHelper.getConvertPic(this.retainedImg);
+		return 	sc;
+	}
+	
+	/**
+	 * タイムラインの選択画面へ遷移する。
+	 * 
+	*/
+	public String moveToTimeLinePage(HuntingModel selectedModel) {
+		
+		if(Optional.ofNullable(selectedModel).isPresent()) {
+			this.huntingTimeLineList = huntingTimeLineRepository.getByModelId(selectedModel.getUserId());			
+			return redirectTo("/selectTimeLineBeforeRegisterGoods");
+		} 
+		addMessage(FacesMessage.SEVERITY_ERROR, "", "もう一度モデルを選択してください。");
+		return null;
+	}
+	
+	
+	/**
+	 * モデルのタイムラインの画像を取得する
+	 * 
+	*/
+	public StreamedContent getConvertTimeLineImg(HuntingTimeLineId huntingTimeLineId) {
+		
+		HuntingTimeLine huntingTimeLine = huntingTimeLineRepository.findByKey(huntingTimeLineId);
+		if(Optional.ofNullable(huntingTimeLineId).isPresent()) {
+			return new DefaultStreamedContent(new ByteArrayInputStream(this.retainedImg));
+		}
+		this.retainedImg = huntingTimeLine.getTimeLineImage();
+		return FetchPictureHelper.getConvertPic(this.retainedImg);		
+	}
+	
+	/**
+	 * 商品の登録ページへ移動する。
+	 * 
+	*/
+	public String moveToRegisterTimeLineGoods(HuntingTimeLine huntingTimeLine) {
+		
+		if(Optional.ofNullable(huntingTimeLine).isPresent()) {
+			this.huntingTimeLine = huntingTimeLine;
+			this.huntingGoods = HuntingGoods.builder().build();
+			this.huntingGoodsImage = HuntingGoodsImage.builder().build();
+			this.huntingGoodsImageList = new ArrayList<>();
+			return redirectTo("/registerTimeLineGoods");
+		}
+		
+		addMessage(FacesMessage.SEVERITY_ERROR, "", "もう一度タイムラインを選択し直してください。");
+		return null;
+		
+	}
+	
+	
+	/**
+	 * 商品を登録する
+	 *
+	 */	
+	public void registerGoods() {
+		
+		HuntingGoods huntingGoods = this.huntingGoods;
+		HuntingGoodsImage huntingGoodsImage = this.huntingGoodsImage;
+		List<HuntingGoodsImage> huntingGoodsImageList = this.huntingGoodsImageList;
+		
+		// ありえないがhuntingGoodsインスタンスが存在していることを確認　⇒　なければタイムラインの選択ページへ戻って再選択してもらう。
+		if(!Optional.ofNullable(huntingGoods).isPresent()) {		
+			addMessage(FacesMessage.SEVERITY_ERROR, "", "前のページへ戻り、再度タイムラインを選択してください。");
+			return;
+		}
+		
+		//画像があるかチェック　⇒　なければ画像を入れてもらう。
+		if(!Optional.ofNullable(this.uploadedFile).isPresent()) {
+			addMessage(FacesMessage.SEVERITY_ERROR, "", "画像をいれてください");
+			return;
+		}
+		
+		//画像をbyte配列へ変換し、登録予定のhuntingGoodsへセットする。
+		huntingGoodsImage.setGoodsImageData(UploadFileHundler.fileHundle(this.uploadedFile));
+		huntingGoodsImageList.add(huntingGoodsImage);
+		huntingGoods.setHuntingGoodsImages(huntingGoodsImageList);
+			
+		
+		String userId = huntingGoods.getHuntingTimeLine().getHuntingTimeLineId().getUserId();
+		String timeLineId = huntingGoods.getHuntingTimeLine().getHuntingTimeLineId().getTimeLineId();
+		String url = huntingGoods.getGoodsUrl();
+		List<HuntingGoods> cpList = huntingGoodsRepository.fetchGoodsByUserAndTimeLine(userId, timeLineId);
+		
+		// DBに選択したタイムラインに関する商品が登録されていない場合の処理。
+		if(!Optional.ofNullable(cpList).isPresent()) {
+			huntingGoodsRepository.save(huntingGoods);			
+			addMessage(FacesMessage.SEVERITY_INFO, "", "商品の登録が完了しました。");
+			return;
+		}			
+	
+		// DBに選択したタイムラインに関する商品が登録されていた場合、すでに登録されているURLではないか確認。
+		for(HuntingGoods compareGoods : cpList) {
+			if(compareGoods.getGoodsUrl().equals(url)) {
+				addMessage(FacesMessage.SEVERITY_ERROR, "", "すでに同じURLが登録されています。");
+				return;
+			}
+		}
+		huntingGoodsRepository.save(huntingGoods);
+		addMessage(FacesMessage.SEVERITY_INFO, "", "商品の登録が完了しました。");
+
 	}
 	
 }

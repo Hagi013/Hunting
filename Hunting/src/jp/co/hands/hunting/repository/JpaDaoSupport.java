@@ -9,6 +9,7 @@ import javax.persistence.PersistenceContextType;
 import javax.persistence.PersistenceUnit;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 import jp.co.hands.hunting.entity.model.BaseEntity;
 
@@ -28,6 +29,12 @@ public class JpaDaoSupport<T extends BaseEntity, K extends Serializable> {
 		CriteriaQuery<T> query = cb.createQuery(targetEntity);
 		return em.createQuery(query.select(query.from(targetEntity))).getResultList();
 	}
+	
+	public Long countAll() {
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		CriteriaQuery<Long> query = cb.createQuery(Long.class);
+		return em.createQuery(query.select(cb.count(query.from(targetEntity)))).getSingleResult();
+	}
 
 	public T findByKey(K key) {
 		if (key != null) {
@@ -44,7 +51,7 @@ public class JpaDaoSupport<T extends BaseEntity, K extends Serializable> {
 		}
 	}
 
-	private void persist(T targetEntity) {
+	protected void persist(T targetEntity) {
 		if (targetEntity != null) {
 			em.persist(targetEntity);
 		} else {
@@ -68,7 +75,7 @@ public class JpaDaoSupport<T extends BaseEntity, K extends Serializable> {
 		}
 	}
 
-	private void merge(T targetEntity) {
+	protected void merge(T targetEntity) {
 		if (targetEntity != null) {
 			em.merge(targetEntity);
 		} else {

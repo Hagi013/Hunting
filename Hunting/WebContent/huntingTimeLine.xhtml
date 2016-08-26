@@ -60,23 +60,26 @@
 					</div>
 
 				</div>
+
 				<hr />
 				<div class="row">
 					<h:form>
-						<div class="col-sm-1">
-							<ui:repeat
-								value="#{timeLineController.huntingModel.huntingTimeLines}"
-								var="timeLine">
-								<p:graphicImage
-									value="#{timeLineController.getConvertTimeLineImg(timeLine.huntingTimeLineId)}"
-									style="width:500px;height:auto;max-height:500px;">
-									<f:param name="igTimeLineId"
-										value="#{timeLine.huntingTimeLineId}" />
-								</p:graphicImage>
-								<hr />
-								<h:outputText value="#{timeLine.text}" />
-							</ui:repeat>
-						</div>
+						<h:dataTable
+							value="#{timeLineController.huntingModel.huntingTimeLines}"
+							var="timeLine">
+							<h:column>
+								<div class="col-sm-1">
+									<p:graphicImage
+										value="#{timeLineController.getConvertTimeLineImg(timeLine.huntingTimeLineId)}"
+										style="width:500px;height:auto;max-height:500px;">
+										<f:param name="igTimeLineId"
+											value="#{timeLine.huntingTimeLineId}" />
+									</p:graphicImage>
+									<h:outputText value="#{timeLine.text}" />
+									<hr />
+								</div>
+							</h:column>
+						</h:dataTable>
 					</h:form>
 				</div>
 				<!-- /.row -->

@@ -53,16 +53,6 @@
 				<hr />
 				<div class="row">
 					<h:form>
-						<!-- <h:dataTable value="#{modelListController.igModelList}"
-							var="model">
-							<h:column>
-								<p:graphicImage class="img-circle img-responsive img-center"
-									value="#{modelListController.convertPic}" width="30%"
-									height="30%">
-									<f:param name="igModelId" value="#{model.userId}" />
-								</p:graphicImage>
-							</h:column>
-						</h:dataTable> -->
 						<ui:repeat value="#{modelListController.igModelList}" var="model">
 							<div class="col-sm-4">
 								<h:commandLink action="#{timeLineController.moveToTimeLinePage(model)}">
