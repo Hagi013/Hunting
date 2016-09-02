@@ -4,8 +4,50 @@
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
  */
 
+@font-face {
+		font-family: 'Dancing';
+		src: url(../resources/font/DancingScript-Regular.ttf);
+}
+@font-face {
+		font-family: 'Dancing-Bold';
+		src: url(../resources/font/DancingScript-Bold.ttf);
+}
+@font-face {
+		font-family: 'PlayfairDisplay-Italic';
+		src: url(../resources/font/PlayfairDisplay-Italic.ttf);
+}
+@font-face {
+		font-family: 'PlayfairDisplay-Regular';
+		src: url(../resources/font/PlayfairDisplay-Regular.ttf);
+}
+
 body {
     padding-top: 70px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+	font-family:  PlayfairDisplay-Regular;
+	background-color: #EEEEEE;
+	color: 	#000000;
+}
+
+.navbar-default {
+background-color: white;
+color: 	#000000;
+}
+
+.navbar .navbar-default  {
+background-color: white;
+color: 	#000000;
+}
+
+.navbar-default .navbar-nav > li > a {
+font-family:  PlayfairDisplay-Regular;
+font-size: 18px;
+color: #000000;
+}
+
+.navbar-default .navbar-brand {
+font-family: Dancing-Bold;
+font-size: 32px;
+color: #000000;
 }
 
 footer {

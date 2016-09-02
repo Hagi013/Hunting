@@ -52,9 +52,9 @@
 				<hr />
 				<div class="row">
 					<h:form>
-						<p:dataGrid value="#{adminRegistController.huntingModelList}"
+						<ui:repeat value="#{adminRegistController.huntingModelList}"
 							var="model">
-							<h:panelGrid columns="4">
+							<div class="col-sm-4">
 								<h:commandLink
 									action="#{adminRegistController.moveToTimeLinePage(model)}">
 									<p:graphicImage class="img-circle img-responsive img-center"
@@ -62,12 +62,12 @@
 										style="width:100%;height:auto;max-height:300px;">
 										<f:param name="modelIdInAdmin" value="#{model.userId}" />
 									</p:graphicImage>
-									<h2>
-										<h:outputText value="#{model.userId}" />
-									</h2>
 								</h:commandLink>
+								<h2>
+									<h:outputText value="#{model.userId}" />
+								</h2>
 							</div>
-						</p:dataGrid>
+						</ui:repeat>
 					</h:form>
 				</div>
 				<!-- /.row -->

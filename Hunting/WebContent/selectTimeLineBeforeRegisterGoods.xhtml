@@ -52,12 +52,14 @@
 							<h:column>
 								<div class="col-sm-1">
 									<h:commandLink
-										action="#{adminRegistController.moveToregisterTimeLineGoods(timeLine)}">
+										action="#{adminRegistController.moveToRegisterTimeLineGoods(timeLine)}">
 										<p:graphicImage
-											value="#{adminRegistController.getConvertTimeLineImg(timeLine.huntingTimeLineId)}"
+											value="#{adminRegistController.convertTimeLineImg}"
 											style="width:500px;height:auto;max-height:500px;">
-											<f:param name="igTimeLineId"
-												value="#{timeLine.huntingTimeLineId}" />
+											<f:param name="modelIdAdmin"
+												value="#{timeLine.huntingTimeLineId.userId}" />
+											<f:param name="timeLineIdAdmin"
+												value="#{timeLine.huntingTimeLineId.timeLineId}" />
 										</p:graphicImage>
 									</h:commandLink>
 									<h:outputText value="#{timeLine.text}" />

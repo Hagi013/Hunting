@@ -30,7 +30,7 @@ public class HuntingGoodsRepository extends JpaDaoSupport<HuntingGoods, Long> {
 	 * HuntingGoodsの主キーはauto_incrementであるため、主キーは不要であるためオーバーロードする。 
 	*/
 	public void save(HuntingGoods huntingGoods) {	
-		if(!Optional.ofNullable(huntingGoods).isPresent()) {
+		if(Optional.ofNullable(huntingGoods).isPresent()) {
 			persist(huntingGoods);
 		} else {
 			System.out.println("hunitngGoods is null");
@@ -49,7 +49,7 @@ public class HuntingGoodsRepository extends JpaDaoSupport<HuntingGoods, Long> {
 		CriteriaQuery<HuntingGoods> query = cb.createQuery(HuntingGoods.class);
 		Root<HuntingGoods> r = query.from(HuntingGoods.class);
 		query.select(r).where(cb.equal(r.get(HuntingGoods_.huntingTimeLine).get(HuntingTimeLine_.huntingTimeLineId),
-				HuntingTimeLineId.builder().userId(targetUserId).timeLineId(targetTimeLineId)));
+				HuntingTimeLineId.builder().userId(targetUserId).timeLineId(targetTimeLineId).build()));
 		return em.createQuery(query).getResultList();
 		
 	}

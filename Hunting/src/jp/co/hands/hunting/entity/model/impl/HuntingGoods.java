@@ -50,10 +50,8 @@ public class HuntingGoods extends BaseEntity {
 	
 	@ManyToOne(targetEntity=HuntingTimeLine.class)
 	@JoinColumns(value={
-			@JoinColumn(name="user_id", referencedColumnName="user_id",
-					insertable=false, updatable=false),
-			@JoinColumn(name="timeline_id", referencedColumnName="timeline_id",
-					insertable=false, updatable=false)})
+			@JoinColumn(name="user_id", referencedColumnName="user_id"),
+			@JoinColumn(name="timeline_id", referencedColumnName="timeline_id")})
 	private HuntingTimeLine huntingTimeLine;	
 	
 	@OneToMany(targetEntity=HuntingGoodsImage.class, cascade=CascadeType.PERSIST, mappedBy="huntingGoods" )

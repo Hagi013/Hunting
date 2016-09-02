@@ -1,8 +1,10 @@
 package jp.co.hands.hunting.entity.model.impl;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -34,11 +36,12 @@ public class HuntingGoodsImage extends BaseEntity {
 	private long goodsImageId;
 	
 	@Lob
+	@Basic(fetch=FetchType.LAZY)
 	@Column(name="goods_image_data")
 	private byte[] goodsImageData;
 	
 	@ManyToOne(targetEntity=HuntingGoods.class)
-	@JoinColumn(name="goods_id", insertable=false, updatable=false)
+	@JoinColumn(name="goods_id")
 	private HuntingGoods huntingGoods;
 	
 }

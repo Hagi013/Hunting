@@ -38,7 +38,7 @@ public class HuntingTimeLine extends BaseEntity {
 	private String link;
 	
 	@Lob
-	//@Basic(fetch=FetchType.LAZY)
+	@Basic(fetch=FetchType.LAZY)
 	@Column(name="timeline_image")
 	private byte[] timeLineImage;
 	
@@ -49,7 +49,7 @@ public class HuntingTimeLine extends BaseEntity {
 	private String text;
 		
 	@ManyToOne(targetEntity=HuntingModel.class)
-	@JoinColumn(name="user_id", insertable=false, updatable=false)
+	@JoinColumn(name="user_id")
 	private HuntingModel huntingModel;
 	
 	@OneToMany(targetEntity = HuntingGoods.class, mappedBy="huntingTimeLine", cascade=CascadeType.ALL)

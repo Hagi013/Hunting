@@ -8,6 +8,9 @@ import java.util.Optional;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import javax.faces.event.PhaseId;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.Part;
@@ -67,10 +70,7 @@ public class AdminRegistController extends BaseController {
 	
 	@Getter @Setter	
 	private Part uploadedFile;
-		
-	@Getter @Setter
-	private byte[] retainedImg;
-	
+			
 	
 	/** method area */
 
@@ -173,23 +173,14 @@ public class AdminRegistController extends BaseController {
 	 * 
 	*/
 	public StreamedContent getConvertModelImg() {
-
-		String userId = JsfManagedObjectFetcher.getString("modelIdInAdmin");
-		System.out.println("userId:   "+userId);
-		this.huntingModel = JsfManagedObjectFetcher.getObject(HuntingModel.class, "model");
 		
-		/*if(huntingModel == null) {
-			System.out.println("通っている！！！！！");			
-			return new DefaultStreamedContent(new ByteArrayInputStream(this.retainedImg));
-		}*/
-		if(userId == null) {
-			System.out.println("通っている！！！！！");			
-			return new DefaultStreamedContent(new ByteArrayInputStream(this.retainedImg));
+		FacesContext con = FacesContext.getCurrentInstance();	
+		if(con.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE) {
+			return new DefaultStreamedContent();
 		}
-		//this.retainedImg = huntingModel.getProfilePicture();
-		this.retainedImg = huntingModelRepository.findByKey(userId).getProfilePicture();
-		StreamedContent sc = FetchPictureHelper.getConvertPic(this.retainedImg);
-		return 	sc;
+		String userId = JsfManagedObjectFetcher.getString("modelIdInAdmin");
+		
+		return 	new DefaultStreamedContent(new ByteArrayInputStream(huntingModelRepository.findByKey(userId).getProfilePicture()));
 	}
 	
 	/**
@@ -211,14 +202,19 @@ public class AdminRegistController extends BaseController {
 	 * モデルのタイムラインの画像を取得する
 	 * 
 	*/
-	public StreamedContent getConvertTimeLineImg(HuntingTimeLineId huntingTimeLineId) {
+	public StreamedContent getConvertTimeLineImg() {
 		
-		HuntingTimeLine huntingTimeLine = huntingTimeLineRepository.findByKey(huntingTimeLineId);
-		if(Optional.ofNullable(huntingTimeLineId).isPresent()) {
-			return new DefaultStreamedContent(new ByteArrayInputStream(this.retainedImg));
+		FacesContext con = FacesContext.getCurrentInstance();
+		
+		if(con.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE) {
+			return new DefaultStreamedContent();
 		}
-		this.retainedImg = huntingTimeLine.getTimeLineImage();
-		return FetchPictureHelper.getConvertPic(this.retainedImg);		
+		String userId = JsfManagedObjectFetcher.getString("modelIdAdmin");
+		String timeLineId = JsfManagedObjectFetcher.getString("timeLineIdAdmin");
+		HuntingTimeLineId huntingTimeLineId = HuntingTimeLineId.builder().userId(userId).timeLineId(timeLineId).build();		
+		HuntingTimeLine huntingTimeLine = huntingTimeLineRepository.findByKey(huntingTimeLineId);
+
+		return new DefaultStreamedContent(new ByteArrayInputStream(huntingTimeLine.getTimeLineImage()));		
 	}
 	
 	/**
@@ -229,7 +225,7 @@ public class AdminRegistController extends BaseController {
 		
 		if(Optional.ofNullable(huntingTimeLine).isPresent()) {
 			this.huntingTimeLine = huntingTimeLine;
-			this.huntingGoods = HuntingGoods.builder().build();
+			this.huntingGoods = HuntingGoods.builder().huntingTimeLine(huntingTimeLine).build();
 			this.huntingGoodsImage = HuntingGoodsImage.builder().build();
 			this.huntingGoodsImageList = new ArrayList<>();
 			return redirectTo("/registerTimeLineGoods");
@@ -270,7 +266,9 @@ public class AdminRegistController extends BaseController {
 			
 		
 		String userId = huntingGoods.getHuntingTimeLine().getHuntingTimeLineId().getUserId();
+		System.out.println("登録前userId；     "+userId);
 		String timeLineId = huntingGoods.getHuntingTimeLine().getHuntingTimeLineId().getTimeLineId();
+		System.out.println("登録前timeLineId；     "+timeLineId);
 		String url = huntingGoods.getGoodsUrl();
 		List<HuntingGoods> cpList = huntingGoodsRepository.fetchGoodsByUserAndTimeLine(userId, timeLineId);
 		
