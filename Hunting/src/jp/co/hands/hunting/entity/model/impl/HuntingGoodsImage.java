@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -43,5 +44,5 @@ public class HuntingGoodsImage extends BaseEntity {
 	@ManyToOne(targetEntity=HuntingGoods.class)
 	@JoinColumn(name="goods_id")
 	private HuntingGoods huntingGoods;
-	
+		
 }

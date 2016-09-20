@@ -54,28 +54,28 @@
 				<div class="row">
 					<h:form>
 						<ui:repeat value="#{modelListController.igModelList}" var="model">
-							<div class="col-sm-4">
-								<h:commandLink action="#{timeLineController.moveToTimeLinePage(model)}">
+							<div class="col-sm-2">
+								<h:commandLink
+									action="#{timeLineController.moveToTimeLinePage(model)}">
 									<p:graphicImage class="img-circle img-responsive img-center"
 										value="#{modelListController.convertPic}"
-										style="width:100%;height:auto;max-height:300px;">
+										style="width:100%;height:auto;max-height:150px;">
 										<f:param name="igModelId" value="#{model.userId}" />
 									</p:graphicImage>
 								</h:commandLink>
-								<h2><h:outputText value="#{model.userId}" /></h2>
-								<p>The images are set to be circular and responsive. Fusce
-									dapibus, tellus ac cursus commodo, tortor mauris condimentum
-									nibh, ut fermentum massa justo sit amet risus. Etiam porta sem
-									malesuada magna mollis euismod. Donec sed odio dui.</p>
+								<h3>
+									<h:outputText class="userLimitedChar" value="#{model.userId}" />
+								</h3>
 							</div>
 						</ui:repeat>
 					</h:form>
 				</div>
 				<!-- /.row -->
 
+
 				<hr />
 
-				<div class="row">
+<!-- 				<div class="row">
 					<div class="col-sm-8">
 						<h2>What We Do</h2>
 						<p>Introduce the visitor to the business using clear,
@@ -100,7 +100,7 @@
 								title="Email">E:</abbr> <a href="mailto:#">name@example.com</a>
 						</address>
 					</div>
-				</div>
+				</div> -->
 				<!-- /.row -->
 				<hr />
 			</div>

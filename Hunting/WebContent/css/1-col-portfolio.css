@@ -50,6 +50,26 @@ font-size: 32px;
 color: #000000;
 }
 
+.contain {
+    display: inline-block;
+    background-color: #ccc;
+    background-position: center center;
+    background-repeat: no-repeat;
+    margin: 5px;
+    width: 500px;
+    height: 500px;
+    border: 1px solid #ccc;
+    background-size: contain;
+}
+
+.userLimitedChar {
+	overflow: hidden;
+    text-overflow: ellipsis;
+    display:inline-block;
+    white-space: nowrap;
+	width: 14em;
+}
+
 footer {
     margin: 50px 0;
 }

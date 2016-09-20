@@ -259,17 +259,20 @@ public class AdminRegistController extends BaseController {
 			return;
 		}
 		
+		
 		//画像をbyte配列へ変換し、登録予定のhuntingGoodsへセットする。
 		huntingGoodsImage.setGoodsImageData(UploadFileHundler.fileHundle(this.uploadedFile));
 		huntingGoodsImageList.add(huntingGoodsImage);
 		huntingGoods.setHuntingGoodsImages(huntingGoodsImageList);
-			
-		
+
 		String userId = huntingGoods.getHuntingTimeLine().getHuntingTimeLineId().getUserId();
 		System.out.println("登録前userId；     "+userId);
 		String timeLineId = huntingGoods.getHuntingTimeLine().getHuntingTimeLineId().getTimeLineId();
 		System.out.println("登録前timeLineId；     "+timeLineId);
 		String url = huntingGoods.getGoodsUrl();
+
+		
+		// userIdとtimelineIdをキーにしてすでに登録されている商品のリストを取得
 		List<HuntingGoods> cpList = huntingGoodsRepository.fetchGoodsByUserAndTimeLine(userId, timeLineId);
 		
 		// DBに選択したタイムラインに関する商品が登録されていない場合の処理。

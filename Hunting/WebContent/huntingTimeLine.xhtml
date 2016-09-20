@@ -51,16 +51,29 @@
 
 			<!-- Page Content -->
 			<div class="container">
-				<div class="panel panel-default">
+<!-- 				<div>
 					<div class="panel-heading">
-						<h3 class="panel-title">
-							<i class="fa fa-bar-chart-o fa-fw"></i>
-							<h:outputText value="#{timeLineController.huntingModel.userId}" />
-						</h3>
+						<div class="col-lg-12">
+							<div class="col-lg-3">
+								<h:form>
+									<p:graphicImage class="img-circle img-responsive img-center"
+										value="#{modelListController.convertPic}"
+										style="width:50%;height:auto;max-height:100px;">
+										<f:param name="igModelId"
+											value="#{timeLineController.huntingModel.userId}" />
+									</p:graphicImage>
+								</h:form>
+								<h1>
+									<h:outputText value="#{timeLineController.huntingModel.userId}" />
+								</h1>
+							</div>
+						</div>
 					</div>
-
 				</div>
+ -->				<div class="row"></div>
 
+				<hr />
+				<hr />
 				<hr />
 				<div class="row">
 					<h:form>
@@ -77,7 +90,8 @@
 										<f:param name="igTimeLineId"
 											value="#{timeLine.huntingTimeLineId.timeLineId}" />
 									</p:graphicImage>
-									<h:outputText value="#{timeLine.text}" />
+									<h:outputLabel style="white-space: nowrap;"
+										value="#{timeLine.text}" />
 									<hr />
 								</div>
 							</h:column>
@@ -85,10 +99,11 @@
 								<p:galleria value="#{timeLine.huntingGoodsList}" var="goods"
 									panelWidth="500" panelHeight="313" showCaption="true">
 									<a href="#{goods.goodsUrl}"> <p:graphicImage
-											title="#{goods.goodsName}" alt="#{goods.goodsPrice}円"
-											value="#{timeLineController.convertGoodsImage}">				
+											class="contain"
+											value="#{timeLineController.convertGoodsImage}"
+											title="#{goods.goodsName}" alt="#{goods.goodsPrice}円">
 											<f:param name="igGoodsId" value="#{goods.goodsId}" />
-										</p:graphicImage>
+										</p:graphicImage> <h:outputText value="#{goods.goodsName}" />
 									</a>
 								</p:galleria>
 							</h:column>

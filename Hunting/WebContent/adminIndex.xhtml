@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="description" content="" />
+	<meta name="author" content="" />
+
+	<title>Select you want.</title>
+
+	<!-- Bootstrap Core CSS -->
+	<link href="css/bootstrap.min.css" rel="stylesheet" />
+
+	<!-- Custom CSS -->
+	<link href="css/1-col-portfolio.css" rel="stylesheet" />
+
+
+	<!-- jQuery -->
+	<h:outputScript library="primefaces" name="jquery/jquery.js" />
+	<h:outputScript library="primefaces" name="jquery/jquery-plugins.js" />
+
+
+	<!-- Bootstrap Core JavaScript -->
+	<h:outputScript library="js" name="bootstrap.min.js" />
+
+
+	<script type="text/JavaScript">
+		function redirectToInstagram() {
+			var url = 'https://api.instagram.com/oauth/authorize/?client_id=8530ba7a835847e79b377f65368f3f1c&amp;redirect_uri=http://localhost:8080/hunting/IGOAuthCallBackServlet&amp;response_type=code';
+			document.location.href = url;
+		}
+	</script>
+
+
+</h:head>
+
+<h:body>
+
+	<ui:composition template="./application/template.xhtml">
+		<ui:define name="content">
+
+			<!-- Image Background Page Header -->
+			<!-- Note: The background image is set within the business-casual.css file. -->
+			<header class="business-header">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-12">
+							<h1 class="tagline"></h1>
+						</div>
+					</div>
+				</div>
+			</header>
+
+			<!-- Page Content -->
+			<div class="container">
+				<div class="row">
+					<h:form>
+						<p>
+							<a
+								href="https://api.instagram.com/oauth/authorize/?client_id=8530ba7a835847e79b377f65368f3f1c&amp;redirect_uri=http://localhost:8080/Hunting/IGOAuthCallBackServlet&amp;response_type=code">
+								<img src="//badges.instagram.com/static/images/ig-badge-48.png" />
+							</a>
+						</p>
+						<p>
+							<h:commandButton class="btn btn-error btn-lg active"
+								action="#{instagramAPIController.startInstagramAPI}"
+								value="start Instagram!" />
+							<h:commandButton class="btn btn-info btn-lg active"
+								action="#{adminRegistController.gotoModelRegister}"
+								value="register model" />
+							<h:commandButton class="btn btn-success btn-lg active"
+								action="#{adminRegistController.gotoTimeLineRegister}"
+								value="register timeLine" />
+							<h:commandButton class="btn btn-warning btn-lg active"
+								action="#{adminRegistController.gotoGoodsRegister}"
+								value="register goods" />
+						</p>
+
+					</h:form>
+				</div>
+				<!-- /.row -->
+
+				<hr />
+
+				<div class="row">
+					<div class="col-sm-8"></div>
+				</div>
+				<!-- /.row -->
+				<hr />
+
+			</div>
+			<!-- /.container -->
+
+		</ui:define>
+	</ui:composition>
+</h:body>
+
+</html>

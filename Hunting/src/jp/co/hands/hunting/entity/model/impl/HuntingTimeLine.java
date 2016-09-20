@@ -49,7 +49,7 @@ public class HuntingTimeLine extends BaseEntity {
 	private String text;
 		
 	@ManyToOne(targetEntity=HuntingModel.class)
-	@JoinColumn(name="user_id")
+	@JoinColumn(name="user_id", insertable=false, updatable=false)
 	private HuntingModel huntingModel;
 	
 	@OneToMany(targetEntity = HuntingGoods.class, mappedBy="huntingTimeLine", cascade=CascadeType.ALL)

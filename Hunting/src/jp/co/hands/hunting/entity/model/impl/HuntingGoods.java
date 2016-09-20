@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.PostPersist;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -54,8 +55,18 @@ public class HuntingGoods extends BaseEntity {
 			@JoinColumn(name="timeline_id", referencedColumnName="timeline_id")})
 	private HuntingTimeLine huntingTimeLine;	
 	
-	@OneToMany(targetEntity=HuntingGoodsImage.class, cascade=CascadeType.PERSIST, mappedBy="huntingGoods" )
+	@OneToMany(targetEntity=HuntingGoodsImage.class, cascade=CascadeType.ALL, mappedBy="huntingGoods" )
 	@JoinColumn(name="goods_image_id")
 	private List<HuntingGoodsImage> huntingGoodsImages;
+	
+	@PostPersist
+	public void postPersist() {
+		System.out.println("this.goodsId:  "+ this.goodsId);
+		for(HuntingGoodsImage targetGoodsImage : huntingGoodsImages) {
+			targetGoodsImage.setHuntingGoods(HuntingGoods.builder().goodsId(this.goodsId).goodsLikes(this.goodsLikes)
+					.goodsName(this.goodsName).goodsPrice(this.goodsPrice).goodsUrl(this.goodsUrl).build());
+		}
+		
+	}
 	
 }
