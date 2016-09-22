@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import com.google.gson.annotations.SerializedName;
 
+import jp.co.hands.hunting.manage.instagram.api.entity.InstagramObject;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,7 +14,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class IgModelInfoCounts implements Serializable {
+public class IgModelInfoCounts extends InstagramObject {
 	
 	@SerializedName("media")
 	private int media;

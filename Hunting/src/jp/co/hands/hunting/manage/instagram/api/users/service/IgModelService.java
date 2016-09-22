@@ -6,7 +6,5 @@ import jp.co.hands.hunting.manage.instagram.api.users.entity.IgModelInfo;
 
 public interface IgModelService {
 	
-	public List<IgModelInfo> recieveIgModel(String accessToken, List<String> ids);
-	
-	public IgModelInfo recieveIgModel(String accessToken, String id);
+	public IgModelInfo recieveIgModel(String id);
 }
