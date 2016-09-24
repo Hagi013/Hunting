@@ -55,24 +55,12 @@
 				<div class="row">
 					<h:form>
 						<p>
-							<a
-								href="https://api.instagram.com/oauth/authorize/?client_id=8530ba7a835847e79b377f65368f3f1c&amp;redirect_uri=http://localhost:8080/Hunting/IGOAuthCallBackServlet&amp;response_type=code">
-								<img src="//badges.instagram.com/static/images/ig-badge-48.png" />
-							</a>
-						</p>
-						<p>
-							<h:commandButton class="btn btn-error btn-lg active"
-								action="#{instagramAPIController.startInstagramAPI}"
-								value="start Instagram!" />
-							<h:commandButton class="btn btn-info btn-lg active"
+							<h:commandButton class="btn btn-primary"
 								action="#{adminRegistController.gotoModelRegister}"
-								value="register model" />
-							<h:commandButton class="btn btn-success btn-lg active"
+								value="search model" />
+							<h:commandButton class="btn btn-danger"
 								action="#{adminRegistController.gotoTimeLineRegister}"
 								value="register timeLine" />
-							<h:commandButton class="btn btn-warning btn-lg active"
-								action="#{adminRegistController.gotoGoodsRegister}"
-								value="register goods" />																		
 						</p>
 					</h:form>
 				</div>
