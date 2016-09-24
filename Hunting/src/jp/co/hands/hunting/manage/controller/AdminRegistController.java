@@ -118,22 +118,30 @@ public class AdminRegistController extends BaseController {
 			System.out.println("UserId"+this.huntingModel.getUserId());
 			return;
 		}
-		
+				
 		if(Optional.ofNullable(uploadedFile).isPresent()) {
 			targetModel.setProfilePicture(UploadFileHundler.fileHundle(uploadedFile));
 			System.out.println("変えました");
 			// targetModel = uploadFileHundle(targetModel, uploadedFile);
 		}
-				
+		
+		// 新規同ＩＤにてデータが登録されていた場合
 		if(!Optional.ofNullable(huntingModelRepository.findByKey(targetModel.getUserId())).isPresent()) {
-
+			System.out.println("どうなってるの？");
+			System.out.println("targetModel.getDisplayName();  "+targetModel.getDisplayName());
+			
+			// 表示名が入力されていなければ入力してもらう。
+			if(targetModel.getDisplayName() == null || targetModel.getDisplayName().isEmpty()) {
+				addMessage(FacesMessage.SEVERITY_ERROR, "", "表示名を入力してください。");
+			} else {						
 			huntingModelRepository.save(targetModel, targetModel.getUserId());
 			addMessage(FacesMessage.SEVERITY_INFO, "", "正常に登録が完了しました。");
+			}
 		} else {
+			// すでにIDが登録されていた場合
 			huntingModelRepository.updata(targetModel, targetModel.getUserId());
 			addMessage(FacesMessage.SEVERITY_INFO, "", "データの更新が完了しました。");			
 		}
-		
 	}
 	
 		

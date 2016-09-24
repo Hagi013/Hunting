@@ -15,7 +15,7 @@ public class IgModelRecievedInfoAdapter implements JsonSerializer<IgModelRecieve
 	public JsonElement serialize(IgModelRecievedInfo value, Type type, JsonSerializationContext context) {
 		
 		JsonObject jsonObj = new JsonObject();
-		jsonObj.add("data", context.serialize(value.getIgModelIngo()));
+		jsonObj.add("data", context.serialize(value.getIgModelInfos()));
 		return jsonObj;		
 	}
 	

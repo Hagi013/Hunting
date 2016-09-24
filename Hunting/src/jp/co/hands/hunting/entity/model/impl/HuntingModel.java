@@ -45,6 +45,9 @@ public class HuntingModel extends BaseEntity{
 	@Column(name="user_last_names")
 	private String userLastName;
 	
+	@Column(name="display_name")
+	private String displayName;
+	
 	@OneToMany(targetEntity=HuntingTimeLine.class, mappedBy="huntingModel", cascade=CascadeType.ALL)
 	@JoinColumn(name="timeline_id")
 	private List<HuntingTimeLine> huntingTimeLines;

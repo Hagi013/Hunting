@@ -27,13 +27,13 @@ import org.yaml.snakeyaml.Yaml;
 import jp.co.hands.hunting.manage.instagram.api.helper.YamlHelper;
 import jp.co.hands.hunting.manage.instagram.api.oauth.entity.AccessToken;
 import jp.co.hands.hunting.manage.instagram.api.oauth.entity.Code;
-import jp.co.hands.hunting.manage.instagram.api.oauth.service.IGService;
+import jp.co.hands.hunting.manage.instagram.api.oauth.service.IGModelService;
 import jp.co.hands.hunting.manage.instagram.api.utils.InstagramClientInfo;
 import jp.co.hands.hunting.manage.instagram.api.utils.InstagramOAuthInfo;
 import jp.co.hands.hunting.manage.instagram.api.utils.filename.YamlUtils;
 
 @Stateless
-public class IGServiceImpl implements IGService, Serializable {
+public class IGModelServiceImpl implements IGModelService, Serializable {
 
 	@Override
 	public AccessToken getAccessToken(String code) {

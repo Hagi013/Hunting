@@ -17,6 +17,6 @@ import lombok.NoArgsConstructor;
 public class IgModelRecievedInfo extends InstagramObject {
 	
 	@SerializedName("data")
-	private IgModelInfo igModelInfo;
+	private IgModelInfo[] igModelInfos;
 
 }

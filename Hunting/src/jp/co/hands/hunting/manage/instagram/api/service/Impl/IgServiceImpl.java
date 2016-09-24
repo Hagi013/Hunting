@@ -1,44 +1,40 @@
-package jp.co.hands.hunting.manage.instagram.api.users.service.Impl;
+package jp.co.hands.hunting.manage.instagram.api.service.Impl;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.enterprise.context.SessionScoped;
-import javax.faces.bean.ManagedBean;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
-import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.URIBuilder;
-import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 
 import jp.co.hands.hunting.manage.instagram.api.helper.YamlHelper;
 import jp.co.hands.hunting.manage.instagram.api.http.Request;
 import jp.co.hands.hunting.manage.instagram.api.http.Verbs;
 import jp.co.hands.hunting.manage.instagram.api.oauth.entity.AccessToken;
+import jp.co.hands.hunting.manage.instagram.api.service.IgService;
 import jp.co.hands.hunting.manage.instagram.api.users.entity.IgModelInfo;
 import jp.co.hands.hunting.manage.instagram.api.users.entity.IgModelRecievedInfo;
-import jp.co.hands.hunting.manage.instagram.api.users.service.IgModelService;
 import jp.co.hands.hunting.manage.instagram.api.utils.InstagramUsers;
 import jp.co.hands.hunting.manage.instagram.api.utils.filename.YamlUtils;
 
 import static jp.co.hands.hunting.manage.instagram.api.helper.GsonHelper.GSON;
 import static jp.co.hands.hunting.manage.instagram.api.helper.HttpHelper.HTTP_CLIENT;;
 
-
+@Named(value = "igServiceImpl")
 @SessionScoped
-public class IgModelServiceImpl implements IgModelService {
+public class IgServiceImpl implements IgService {
 	
 	@Inject
 	private AccessToken accessToken;
 	
 	private InstagramUsers instagramUsers;
 
-	public IgModelServiceImpl() throws IOException {
+	public IgServiceImpl() throws IOException {
 		YamlHelper yamlHelper = new YamlHelper();
 		instagramUsers = (InstagramUsers) yamlHelper.getYamlInfo(InstagramUsers.class, YamlUtils.USERS_YAML_FILE_NAME);
 	}
@@ -55,7 +51,7 @@ public class IgModelServiceImpl implements IgModelService {
 			String body = EntityUtils.toString(response.getEntity());
 			if(status == HttpStatus.SC_OK) {
 				IgModelRecievedInfo igModelRecievedInfo = GSON.fromJson(body, IgModelRecievedInfo.class);
-				return igModelRecievedInfo.getIgModelInfo();
+				return igModelRecievedInfo.getIgModelInfos()[0];
 			} else {
 				throw new RuntimeException(
 						String.format("Could not send message status code: %s response: %s", status, body));
@@ -81,4 +77,7 @@ public class IgModelServiceImpl implements IgModelService {
 	private StringBuilder addSerachId(StringBuilder targetUri, String id) {
 		return targetUri.append(id);
 	}
+	
+	
+	
 }
