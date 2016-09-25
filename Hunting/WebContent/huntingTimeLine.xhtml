@@ -51,26 +51,7 @@
 
 			<!-- Page Content -->
 			<div class="container">
-<!-- 				<div>
-					<div class="panel-heading">
-						<div class="col-lg-12">
-							<div class="col-lg-3">
-								<h:form>
-									<p:graphicImage class="img-circle img-responsive img-center"
-										value="#{modelListController.convertPic}"
-										style="width:50%;height:auto;max-height:100px;">
-										<f:param name="igModelId"
-											value="#{timeLineController.huntingModel.userId}" />
-									</p:graphicImage>
-								</h:form>
-								<h1>
-									<h:outputText value="#{timeLineController.huntingModel.userId}" />
-								</h1>
-							</div>
-						</div>
-					</div>
-				</div>
- -->				<div class="row"></div>
+				<div class="row"></div>
 
 				<hr />
 				<hr />
@@ -81,18 +62,37 @@
 							value="#{timeLineController.huntingModel.huntingTimeLines}"
 							var="timeLine">
 							<h:column>
-								<div class="col-sm-1">
-									<p:graphicImage
-										value="#{timeLineController.convertTimeLineImg}"
-										style="width:500px;height:auto;max-height:500px;">
-										<f:param name="igModelId"
-											value="#{timeLine.huntingTimeLineId.userId}" />
-										<f:param name="igTimeLineId"
-											value="#{timeLine.huntingTimeLineId.timeLineId}" />
-									</p:graphicImage>
-									<h:outputLabel style="white-space: nowrap;"
-										value="#{timeLine.text}" />
-									<hr />
+								<hr />
+								<br />
+								<div class="row">
+									<div class="col-sm-5">
+										<p:graphicImage
+											value="#{timeLineController.convertTimeLineImg}"
+											style="width:500px;height:auto;max-height:500px;">
+											<f:param name="igModelId"
+												value="#{timeLine.huntingTimeLineId.userId}" />
+											<f:param name="igTimeLineId"
+												value="#{timeLine.huntingTimeLineId.timeLineId}" />
+										</p:graphicImage>
+										<h:outputLabel style="white-space: nowrap;"
+											value="#{timeLine.text}" />
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-sm-5">
+										<p:repeat value="#{timeLine.huntingGoodsList}" var="goods">
+											<a href="#{goods.goodsUrl}"> <p:repeat
+													value="#{goods.huntingGoodsImages}" var="goodsImage">
+													<p:graphicImage class="contain"
+														value="#{timeLineController.convertGoodsIndivImg}"
+														style="width:75px;height:auto;max-height:75px;">
+														<f:param name="igGoodsImageId"
+															value="#{goodsImage.goodsImageId}" />
+													</p:graphicImage>
+												</p:repeat>
+											</a>
+										</p:repeat>
+									</div>
 								</div>
 							</h:column>
 							<h:column>

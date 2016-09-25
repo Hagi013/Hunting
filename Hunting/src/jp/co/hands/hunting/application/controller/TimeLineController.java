@@ -22,6 +22,7 @@ import jp.co.hands.hunting.entity.model.impl.HuntingGoods;
 import jp.co.hands.hunting.entity.model.impl.HuntingModel;
 import jp.co.hands.hunting.entity.model.impl.HuntingTimeLine;
 import jp.co.hands.hunting.entity.model.impl.HuntingTimeLineId;
+import jp.co.hands.hunting.repository.impl.HuntingGoodsImageRepository;
 import jp.co.hands.hunting.repository.impl.HuntingGoodsRepository;
 import jp.co.hands.hunting.repository.impl.HuntingTimeLineRepository;
 import lombok.Getter;
@@ -38,6 +39,9 @@ public class TimeLineController extends BaseController {
 	@Inject
 	private HuntingGoodsRepository huntingGoodsRepository;
 
+	@Inject
+	private HuntingGoodsImageRepository huntingGoodsImageRepository;
+	
 	@Getter @Setter
 	private HuntingModel huntingModel;
 	
@@ -98,6 +102,22 @@ public class TimeLineController extends BaseController {
 				return new DefaultStreamedContent(new ByteArrayInputStream(targetGoodsImage));
 			}
 		}	
+		return new DefaultStreamedContent();
+	}
+	
+	
+	public StreamedContent getConvertGoodsIndivImg() {
+		
+		FacesContext con = FacesContext.getCurrentInstance();
+		if(con.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE) {
+			return new DefaultStreamedContent();
+		}
+		
+		long targetGoodsImgId = Long.parseLong(JsfManagedObjectFetcher.getString("igGoodsImageId")); 
+		if(Optional.ofNullable(targetGoodsImgId).isPresent() && targetGoodsImgId != 0) {
+			return new DefaultStreamedContent(new ByteArrayInputStream(huntingGoodsImageRepository.findByKey(targetGoodsImgId).getGoodsImageData()));
+		}
+		
 		return new DefaultStreamedContent();
 	}
 	
