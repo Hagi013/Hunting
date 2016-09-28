@@ -65,10 +65,10 @@
 								<hr />
 								<br />
 								<div class="row">
-									<div class="col-sm-5">
+									<div class="col-lg-2">
 										<p:graphicImage
 											value="#{timeLineController.convertTimeLineImg}"
-											style="width:500px;height:auto;max-height:500px;">
+											style="width:350px;height:auto;max-height:350px;">
 											<f:param name="igModelId"
 												value="#{timeLine.huntingTimeLineId.userId}" />
 											<f:param name="igTimeLineId"
@@ -79,33 +79,35 @@
 									</div>
 								</div>
 								<div class="row">
-									<div class="col-sm-5">
-										<p:repeat value="#{timeLine.huntingGoodsList}" var="goods">
-											<a href="#{goods.goodsUrl}"> <p:repeat
-													value="#{goods.huntingGoodsImages}" var="goodsImage">
+									<p:repeat value="#{timeLine.huntingGoodsList}" var="goods">
+										<a href="#{goods.goodsUrl}"> <p:repeat
+												value="#{goods.huntingGoodsImages}" var="goodsImage">
+												<div class="col-xs-3 col-sm-3 col-md-2 col-lg-2">
 													<p:graphicImage class="contain"
 														value="#{timeLineController.convertGoodsIndivImg}"
 														style="width:75px;height:auto;max-height:75px;">
 														<f:param name="igGoodsImageId"
 															value="#{goodsImage.goodsImageId}" />
 													</p:graphicImage>
-												</p:repeat>
-											</a>
-										</p:repeat>
-									</div>
+												</div>
+											</p:repeat>
+										</a>
+									</p:repeat>
 								</div>
 							</h:column>
 							<h:column>
-								<p:galleria value="#{timeLine.huntingGoodsList}" var="goods"
-									panelWidth="500" panelHeight="313" showCaption="true">
-									<a href="#{goods.goodsUrl}"> <p:graphicImage
-											class="contain"
-											value="#{timeLineController.convertGoodsImage}"
-											title="#{goods.goodsName}" alt="#{goods.goodsPrice}円">
-											<f:param name="igGoodsId" value="#{goods.goodsId}" />
-										</p:graphicImage> <h:outputText value="#{goods.goodsName}" />
-									</a>
-								</p:galleria>
+								<div class="hidden-xs hidden-sm">
+									<p:galleria value="#{timeLine.huntingGoodsList}" var="goods"
+										panelWidth="500" panelHeight="313" showCaption="true">
+										<a href="#{goods.goodsUrl}"> <p:graphicImage
+												class="contain"
+												value="#{timeLineController.convertGoodsImage}"
+												title="#{goods.goodsName}" alt="#{goods.goodsPrice}円">
+												<f:param name="igGoodsId" value="#{goods.goodsId}" />
+											</p:graphicImage> <h:outputText value="#{goods.goodsName}" />
+										</a>
+									</p:galleria>
+								</div>
 							</h:column>
 						</h:dataTable>
 					</h:form>
