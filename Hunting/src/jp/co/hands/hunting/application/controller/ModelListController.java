@@ -59,4 +59,23 @@ public class ModelListController extends BaseController {
 		
 	}
 	
+	
+	/**
+	 * TimeLineの一番最新の画像をレンダリングするメソッド(DBより取得した画像データのバイナリーをStreamedContentに変換して返す)
+	 * ★今は全然最新じゃない。。。。。
+	 * @param return ds: DBから取得した画像データ
+	*/	
+	public StreamedContent getLatestTimeLinePic() {
+		
+		HuntingModel targetModel = HuntingModel.builder().build();
+		FacesContext con = FacesContext.getCurrentInstance();
+		if(con.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE) {
+			return new DefaultStreamedContent();
+		} else {
+			targetModel = huntingModelRepository.findByKey(JsfManagedObjectFetcher.getString("igModelId2"));
+		}
+		
+		return  new DefaultStreamedContent(new ByteArrayInputStream(targetModel.getHuntingTimeLines().get(0).getTimeLineImage()));
+	}
+	
 }

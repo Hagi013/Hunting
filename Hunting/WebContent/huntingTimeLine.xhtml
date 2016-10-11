@@ -35,68 +35,54 @@
 
 	<ui:composition template="./application/template.xhtml">
 		<ui:define name="content">
-
-			<!-- Image Background Page Header -->
-			<!-- Note: The background image is set within the business-casual.css file. -->
-			<header class="business-header">
-				<div class="container">
-					<div class="row">
-						<div class="col-lg-12">
-							<h1 class="tagline">Check Your Favorite Fashion Model
-								TimeLine!</h1>
-						</div>
-					</div>
-				</div>
-			</header>
-
 			<!-- Page Content -->
 			<div class="container">
-				<div class="row"></div>
-
-				<hr />
-				<hr />
-				<hr />
 				<div class="row">
 					<h:form>
 						<h:dataTable
 							value="#{timeLineController.huntingModel.huntingTimeLines}"
 							var="timeLine">
 							<h:column>
-								<hr />
 								<br />
-								<div class="row">
-									<div class="col-lg-2">
-										<p:graphicImage
-											value="#{timeLineController.convertTimeLineImg}"
-											style="width:350px;height:auto;max-height:350px;">
-											<f:param name="igModelId"
-												value="#{timeLine.huntingTimeLineId.userId}" />
-											<f:param name="igTimeLineId"
-												value="#{timeLine.huntingTimeLineId.timeLineId}" />
-										</p:graphicImage>
-										<h:outputLabel style="white-space: nowrap;"
-											value="#{timeLine.text}" />
+								<div class="row col-xs-12 col-sm-12 col-md-12 col-lg-12">
+									<div class="parent">
+										<div class="inner">
+											<p:graphicImage
+												value="#{timeLineController.convertTimeLineImg}"
+												style="width:250px;height:auto;max-height:250px;">
+												<f:param name="igModelId"
+													value="#{timeLine.huntingTimeLineId.userId}" />
+												<f:param name="igTimeLineId"
+													value="#{timeLine.huntingTimeLineId.timeLineId}" />
+											</p:graphicImage>
+											<h:outputLabel style="white-space: nowrap;"
+												value="#{timeLine.text}" />
+										</div>
 									</div>
 								</div>
 								<div class="row">
-									<p:repeat value="#{timeLine.huntingGoodsList}" var="goods">
-										<a href="#{goods.goodsUrl}"> <p:repeat
-												value="#{goods.huntingGoodsImages}" var="goodsImage">
-												<div class="col-xs-3 col-sm-3 col-md-2 col-lg-2">
-													<p:graphicImage class="contain"
-														value="#{timeLineController.convertGoodsIndivImg}"
-														style="width:75px;height:auto;max-height:75px;">
-														<f:param name="igGoodsImageId"
-															value="#{goodsImage.goodsImageId}" />
-													</p:graphicImage>
-												</div>
+									<div class="parent-goods">
+										<div class="inner-goods">
+											<p:repeat value="#{timeLine.huntingGoodsList}" var="goods">
+												<a href="#{goods.goodsUrl}"> <p:repeat
+														value="#{goods.huntingGoodsImages}" var="goodsImage">
+														<div class="col-xs-4 col-sm-4 col-md-2 col-lg-2">
+															<p:graphicImage class="contain"
+																value="#{timeLineController.convertGoodsIndivImg}"
+																style="width:75px;height:auto;max-height:75px;">
+																<f:param name="igGoodsImageId"
+																	value="#{goodsImage.goodsImageId}" />
+															</p:graphicImage>
+														</div>
+													</p:repeat>
+												</a>
 											</p:repeat>
-										</a>
-									</p:repeat>
+										</div>
+									</div>
 								</div>
 							</h:column>
 							<h:column>
-								<div class="hidden-xs hidden-sm">
+								<div class="hidden-xs hidden-sm timeLineCenter">
 									<p:galleria value="#{timeLine.huntingGoodsList}" var="goods"
 										panelWidth="500" panelHeight="313" showCaption="true">
 										<a href="#{goods.goodsUrl}"> <p:graphicImage
@@ -113,57 +99,6 @@
 					</h:form>
 				</div>
 				<!-- /.row -->
-
-				<hr />
-
-				<div class="row">
-					<div class="col-sm-8"></div>
-				</div>
-				<!-- /.row -->
-				<hr />
-
-				<!-- Page Heading -->
-				<div class="row">
-					<div class="col-lg-12">
-						<h1 class="page-header">
-							Page Heading <small>Secondary Text</small>
-						</h1>
-					</div>
-				</div>
-				<!-- /.row -->
-
-				<!-- Project One -->
-				<div class="row">
-					<h:form>
-						<ui:repeat
-							value="#{timeLineController.huntingModel.huntingTimeLines}"
-							var="timeLine">
-
-							<div class="col-md-7">
-								<p:graphicImage value="#{timeLineController.convertTimeLineImg}"
-									style="width:500px;height:auto;max-height:500px;">
-									<f:param name="igModelId"
-										value="#{timeLine.huntingTimeLineId.userId}" />
-									<f:param name="igTimeLineId"
-										value="#{timeLine.huntingTimeLineId.timeLineId}" />
-								</p:graphicImage>
-							</div>
-							<div class="col-md-5">
-								<h3>Project One</h3>
-								<h4>Subheading</h4>
-								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-									Laudantium veniam exercitationem expedita laborum at voluptate.
-									Labore, voluptates totam at aut nemo deserunt rem magni
-									pariatur quos perspiciatis atque eveniet unde.</p>
-								<a class="btn btn-primary" href="#">View Project <span
-									class="glyphicon glyphicon-chevron-right"></span></a>
-							</div>
-							<hr />
-						</ui:repeat>
-					</h:form>
-				</div>
-				<!-- /.row -->
-				<hr />
 			</div>
 			<!-- /.container -->
 		</ui:define>

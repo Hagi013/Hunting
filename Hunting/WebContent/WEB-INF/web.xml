@@ -9,11 +9,11 @@
 		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-	
+
 	<!-- <servlet>
 		<display-name>IGOAuthCallBackServlet</display-name>
 		<servlet-name>IGOAuthCallBackServlet</servlet-name>
-		<servlet-class>jp.co.hands.hunting.application.api.servlet.IGOAuthCallBackServlet</servlet-class>
+		<servlet-class>jp.co.hands.hunting.manage.instagram.api.oauth.servlet.IGOAuthCallBackServlet</servlet-class>
 	</servlet>
 		<servlet-mapping>
 		<servlet-name>IGOAuthCallBackServlet</servlet-name>

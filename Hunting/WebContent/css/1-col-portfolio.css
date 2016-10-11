@@ -24,9 +24,103 @@
 body {
     padding-top: 70px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
 	font-family:  PlayfairDisplay-Regular;
-	background-color: #EEEEEE;
+	background-color: #FFFFFF;
 	color: 	#000000;
 }
+
+.parent{
+  width: 250px;
+  margin: 10px 5px 0px;
+  padding: 10px 5px 0px;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+}
+.inner{
+  padding: 5px 5px 0px;
+  margin: 0 10px;
+  width: 240px;
+  display: inline-block;
+}
+
+.parent-goods{
+  width: 250px;
+  margin: 0px 5px;
+  padding: 5px;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+}
+.inner-goods{
+  padding: 0px 5px 0px;
+  margin: 0 10px;
+  width: 250px;
+  display: inline-block;
+}
+
+.timeLineCenter{
+  width: 250px;
+  text-align: center;
+}
+
+.center {
+    text-align:center;
+}
+
+.centerLogo {
+ position: relative;
+ overflow: hidden;
+ left: 35%;
+ float: left;
+}
+
+.center table {
+ margin-left: auto;
+ margin-right: auto;
+}
+
+.center td, th {
+padding: 10px 10px;
+}
+
+/* .center {
+    max-width:600px; 要素の幅を指定する（固定幅ならwidth:600px;）
+    margin:0 auto; ブロック要素の中央揃え
+}
+
+.center2 {
+    position:relative; 絶対配置の基準点
+    width:100%; 600px以下は幅いっぱいに広げる
+    max-width:600px; 最大幅の指定
+    height:300px; 高さの指定
+    margin:0 auto; ブロック要素の中央揃え
+    text-align:center; インライン要素の中央揃え
+}
+
+.center02 .inner {
+    position:absolute; 絶対配置
+    top:50%; 上から半分
+    left:50%; 左から半分
+    width:100%; 大枠と同じ幅に
+    margin:-1.5em 0 0 -50%; 要素の大きさの半分引く
+}
+
+.center3 {
+    display:table; 要素をテーブルのようにする
+    width:100%;
+    max-width:600px;
+    height:300px;
+    margin:0 auto;
+}
+
+.center03 p {
+    display:table-cell; 要素をテーブルのようにする
+    text-align:center; インライン要素の中央揃え
+    vertical-align:middle; 天地中央に揃える
+}
+ */
 
 .navbar-default {
 background-color: white;

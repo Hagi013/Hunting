@@ -31,78 +31,36 @@
 </h:head>
 
 <h:body>
-
 	<ui:composition template="./application/template.xhtml">
 		<ui:define name="content">
-
-			<!-- Image Background Page Header -->
-			<!-- Note: The background image is set within the business-casual.css file. -->
-			<header class="business-header">
-				<div class="container">
-					<div class="row">
-						<div class="col-lg-12">
-							<h1 class="tagline">Check Your Favorite Fashion Model.</h1>
-						</div>
-					</div>
-				</div>
-			</header>
-
 			<!-- Page Content -->
 			<div class="container">
-
-				<hr />
 				<div class="row">
 					<h:form>
 						<ui:repeat value="#{modelListController.igModelList}" var="model">
-							<div class="col-xs-6 col-sm-4 col-md-2 col-lg-2">
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 center">
 								<h:commandLink
 									action="#{timeLineController.moveToTimeLinePage(model)}">
-									<p:graphicImage class="img-circle img-responsive img-center"
+									<p:graphicImage class="img-circle"
 										value="#{modelListController.convertPic}"
-										style="width:100%;height:auto;max-height:150px;">
+										style="width:80px;height:auto;max-height:80px;">
 										<f:param name="igModelId" value="#{model.userId}" />
 									</p:graphicImage>
 								</h:commandLink>
 								<h3>
-									<h:outputText class="userLimitedChar" value="#{model.displayName}" />
+									<h:outputLabel style="white-space: nowrap;" class="userLimitedChar"
+										value="#{model.displayName}" />
 								</h3>
+								<p:graphicImage
+									value="#{modelListController.latestTimeLinePic}"
+									style="width:250px;height:auto;max-height:250px;padding-bottom:50px;">
+									<f:param name="igModelId2" value="#{model.userId}" />
+								</p:graphicImage>
 							</div>
 						</ui:repeat>
 					</h:form>
 				</div>
 				<!-- /.row -->
-
-
-				<hr />
-
- 				<!-- <div class="row">
-					<div class="col-sm-8">
-						<h2>What We Do</h2>
-						<p>Introduce the visitor to the business using clear,
-							informative text. Use well-targeted keywords within your
-							sentences to make sure search engines can find the business.</p>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-							Et molestiae similique eligendi reiciendis sunt distinctio odit?
-							Quia, neque, ipsa, adipisci quisquam ullam deserunt accusantium
-							illo iste exercitationem nemo voluptates asperiores.</p>
-						<p>
-							<a class="btn btn-default btn-lg" href="#">Call to Action</a>
-						</p>
-					</div>
-					<div class="col-sm-4">
-						<h2>Contact Us</h2>
-						<address>
-							<strong>Start Bootstrap</strong> <br />3481 Melrose Place <br />Beverly
-							Hills, CA 90210 <br />
-						</address>
-						<address>
-							<abbr title="Phone">P:</abbr>(123) 456-7890 <br /> <abbr
-								title="Email">E:</abbr> <a href="mailto:#">name@example.com</a>
-						</address>
-					</div>
-				</div> -->
-				<!-- /.row -->
-				<hr />
 			</div>
 			<!-- /.container -->
 		</ui:define>
