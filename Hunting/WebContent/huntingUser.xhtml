@@ -37,27 +37,29 @@
 			<div class="container">
 				<div class="row">
 					<h:form>
-						<ui:repeat value="#{modelListController.igModelList}" var="model">
+						<p:repeat value="#{modelListController.igModelList}" var="model">
 							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 center">
 								<h:commandLink
 									action="#{timeLineController.moveToTimeLinePage(model)}">
 									<p:graphicImage class="img-circle"
+										value="#{model.profilePictureUrl}"
+										style="width:80px;height:auto;max-height:80px;">
+									</p:graphicImage>
+									<!-- <p:graphicImage class="img-circle"
 										value="#{modelListController.convertPic}"
 										style="width:80px;height:auto;max-height:80px;">
 										<f:param name="igModelId" value="#{model.userId}" />
-									</p:graphicImage>
+									</p:graphicImage> -->
 								</h:commandLink>
 								<h3>
-									<h:outputLabel style="white-space: nowrap;" class="userLimitedChar"
-										value="#{model.displayName}" />
+									<h:outputLabel style="white-space: nowrap;"
+										class="userLimitedChar" value="#{model.displayName}" />
 								</h3>
-								<p:graphicImage
-									value="#{modelListController.latestTimeLinePic}"
+								<p:graphicImage value="#{timeLineController.getLatestTimeLineImg(model.userId)}"
 									style="width:250px;height:auto;max-height:250px;padding-bottom:50px;">
-									<f:param name="igModelId2" value="#{model.userId}" />
 								</p:graphicImage>
 							</div>
-						</ui:repeat>
+						</p:repeat>
 					</h:form>
 				</div>
 				<!-- /.row -->

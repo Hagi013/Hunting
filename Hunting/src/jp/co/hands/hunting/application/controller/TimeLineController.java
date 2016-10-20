@@ -55,6 +55,9 @@ public class TimeLineController extends BaseController {
 	public String moveToTimeLinePage(HuntingModel targetModel) {
 
 		huntingModel = targetModel;
+		/*for(HuntingTimeLine  target : huntingModel.getHuntingTimeLines()) {
+			System.out.println("タイムライン画像のURL"+ target.getTimeLineImageUrl());
+		}*/
 		if (Optional.ofNullable(huntingModel).isPresent()) {
 			return redirectTo("/huntingTimeLine");
 		}
@@ -105,7 +108,10 @@ public class TimeLineController extends BaseController {
 		return new DefaultStreamedContent();
 	}
 	
-	
+	/**
+	 * 商品画像すべてをレンダリングするメソッド(DBより取得した画像データのバイナリーをStreamedContentに変換して返す) 
+	 * @return　DBから取得した画像データ
+	 */	
 	public StreamedContent getConvertGoodsIndivImg() {
 		
 		FacesContext con = FacesContext.getCurrentInstance();
@@ -119,6 +125,26 @@ public class TimeLineController extends BaseController {
 		}
 		
 		return new DefaultStreamedContent();
+	}
+	
+	/**
+	 * TimeLineの一番最新の画像をレンダリングするメソッド
+	 * @param return ds: DBから取得した画像のURL
+	*/	
+	public String getLatestTimeLineImg(String userId) {
+		System.out.println("取れているか？:  "+ userId);
+		
+		if(huntingTimeLineRepository.getLatestTimeLine(userId).size() == 0) {
+			return null;
+		}
+		HuntingTimeLine huntingTimeLine = huntingTimeLineRepository.getLatestTimeLine(userId).get(0);
+		
+		// huntingTimeLineに値が入っていなかった場合
+		if(!Optional.ofNullable(huntingTimeLine).isPresent()) {
+			System.out.println("TimeLineの画像取得に失敗");
+			return null;
+		}		
+		return  huntingTimeLine.getTimeLineImageUrl();
 	}
 	
 }

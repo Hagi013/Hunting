@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import jp.co.hands.hunting.entity.model.BaseEntity;
 import lombok.AllArgsConstructor;
@@ -41,7 +42,11 @@ public class HuntingModel extends BaseEntity{
 	@Basic(fetch = FetchType.LAZY)
 	@Column(name="profile_picture")
 	private byte[] profilePicture;
-
+	
+	@Lob
+	@Column(name="profile_picture_url")
+	private String profilePictureUrl;
+	
 	@Column(name="user_last_names")
 	private String userLastName;
 	

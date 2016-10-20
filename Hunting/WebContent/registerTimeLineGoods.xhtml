@@ -54,6 +54,7 @@
 								<th>モデルID</th>
 								<th>タイムラインID</th>
 								<th>商品の画像</th>
+								<th>商品の画像のURL</th>
 								<th>商品名</th>
 								<th>URL</th>
 								<th>商品の値段</th>								
@@ -67,6 +68,9 @@
 
 								<td><h:inputFile id="goods_image"
 										value="#{adminRegistController.uploadedFile}" /></td>
+
+								<td><p:inputText id="goods_image_url" placeholder="GoodsUrl"
+										value="#{adminRegistController.goodsImageUrl}" /></td>
 
 								<td><p:inputText id="goods_name" placeholder="GoodsName"
 										value="#{adminRegistController.huntingGoods.goodsName}" /></td>

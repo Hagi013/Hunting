@@ -15,6 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import jp.co.hands.hunting.entity.model.BaseEntity;
 import lombok.AllArgsConstructor;
@@ -40,6 +41,10 @@ public class HuntingGoodsImage extends BaseEntity {
 	@Basic(fetch=FetchType.LAZY)
 	@Column(name="goods_image_data")
 	private byte[] goodsImageData;
+	
+	@Lob
+	@Column(name="goods_image_url")
+	private String goodsImageUrl;
 	
 	@ManyToOne(targetEntity=HuntingGoods.class)
 	@JoinColumn(name="goods_id")

@@ -14,6 +14,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import jp.co.hands.hunting.entity.model.BaseEntity;
 import lombok.AllArgsConstructor;
@@ -41,6 +42,10 @@ public class HuntingTimeLine extends BaseEntity {
 	@Basic(fetch=FetchType.LAZY)
 	@Column(name="timeline_image")
 	private byte[] timeLineImage;
+	
+	@Lob
+	@Column(name="timeline_image_url")
+	private String timeLineImageUrl;
 	
 	@Column(name="created_time")
 	private String createdTime;

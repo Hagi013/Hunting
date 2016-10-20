@@ -53,6 +53,7 @@
 							<tr>
 								<th>モデルID</th>
 								<th>表示名</th>
+								<th>写真のURL</th>
 								<th>写真</th>
 							</tr>
 							<tr>
@@ -60,6 +61,8 @@
 										value="#{adminRegistController.huntingModel.userId}" /></td>
 								<td><p:inputText id="displayName" placeholder="表示名"
 										value="#{adminRegistController.huntingModel.displayName}" /></td>
+								<td><p:inputText id="modelImageUrl" placeholder="画像のURL"
+										value="#{adminRegistController.huntingModel.profilePictureUrl}" /></td>
 								<td><h:inputFile id="modelImage"
 										value="#{adminRegistController.uploadedFile}" /></td>
 							</tr>

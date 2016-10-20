@@ -53,6 +53,7 @@
 							<tr>
 								<th>モデルID</th>
 								<th>タイムラインID</th>
+								<th>タイムラインの写真のURL</th>
 								<th>タイムラインの写真</th>
 								<th>コメント</th>
 							</tr>
@@ -63,13 +64,16 @@
 								<td><p:inputText id="timeline_timeLineId" placeholder="TimeLineId"
 										value="#{adminRegistController.huntingTimeLine.huntingTimeLineId.timeLineId}" /></td>
 
+								<td><p:inputText id="timeLineImageUrl" placeholder="TimeLine画像のURL"
+										value="#{adminRegistController.huntingTimeLine.timeLineImageUrl}" /></td>
+
 								<td><h:inputFile id="timeLineImage"
 										value="#{adminRegistController.uploadedFile}" /></td>
 
-								<td><p:inputText id="timeline_comment" placeholder="comment"
+								<td><p:inputText id="timeline_comment" placeholder="コメント"
 										value="#{adminRegistController.huntingTimeLine.text}" /></td>
 
-								<td><p:inputText id="timeline_createdTime" placeholder="createdTime"
+								<td><p:inputText id="timeline_createdTime" placeholder="登録時間"
 										value="#{adminRegistController.huntingTimeLine.createdTime}" /></td>										
 							</tr>
 						</Table>

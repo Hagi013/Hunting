@@ -69,6 +69,21 @@ body {
     text-align:center;
 }
 
+.center-timeline{
+  padding-bottom: 10px 0px 10px
+  width: 250px;
+  text-align: center;
+}
+
+.goods-indiv-margin {
+ margin: 0px 0px 50px 5px;	
+}
+
+.left-goods-indiv {
+ position: relative;
+ text-align:left;
+}
+
 .centerLogo {
  position: relative;
  overflow: hidden;
@@ -84,43 +99,6 @@ body {
 .center td, th {
 padding: 10px 10px;
 }
-
-/* .center {
-    max-width:600px; 要素の幅を指定する（固定幅ならwidth:600px;）
-    margin:0 auto; ブロック要素の中央揃え
-}
-
-.center2 {
-    position:relative; 絶対配置の基準点
-    width:100%; 600px以下は幅いっぱいに広げる
-    max-width:600px; 最大幅の指定
-    height:300px; 高さの指定
-    margin:0 auto; ブロック要素の中央揃え
-    text-align:center; インライン要素の中央揃え
-}
-
-.center02 .inner {
-    position:absolute; 絶対配置
-    top:50%; 上から半分
-    left:50%; 左から半分
-    width:100%; 大枠と同じ幅に
-    margin:-1.5em 0 0 -50%; 要素の大きさの半分引く
-}
-
-.center3 {
-    display:table; 要素をテーブルのようにする
-    width:100%;
-    max-width:600px;
-    height:300px;
-    margin:0 auto;
-}
-
-.center03 p {
-    display:table-cell; 要素をテーブルのようにする
-    text-align:center; インライン要素の中央揃え
-    vertical-align:middle; 天地中央に揃える
-}
- */
 
 .navbar-default {
 background-color: white;
