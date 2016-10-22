@@ -6,6 +6,8 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.PrePersist;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 import lombok.Data;
@@ -18,6 +20,7 @@ public class BaseEntity implements Serializable {
 	private boolean deleteFlag;
 	
 	@Column(name="registered_datetime")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date registeredDateTime;
 	
 	@PrePersist
