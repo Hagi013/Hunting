@@ -37,8 +37,11 @@ public class HuntingTimeLineRepository extends JpaDaoSupport<HuntingTimeLine, Hu
 		return em.createQuery(query).getResultList();
 	}
 
-	
-	// 作成途中
+	/**
+	 * ユーザの最新のタイムラインの画像を返す(0件の場合にエラーとなるgetSingleResultを返すのではなくgetResultListで返す)
+	 * @param userId ユーザID
+	 * @return List<HuntingTimeLIne>
+	*/
 	public List<HuntingTimeLine> getLatestTimeLine(String userId) {
 		
 		CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -46,7 +49,8 @@ public class HuntingTimeLineRepository extends JpaDaoSupport<HuntingTimeLine, Hu
 		Root<HuntingTimeLine> r = query.from(HuntingTimeLine.class);
 		Subquery<HuntingTimeLine> subQuery  = query.subquery(HuntingTimeLine.class);
 		Root<HuntingTimeLine> sr = subQuery.from(HuntingTimeLine.class);
-		subQuery.select(cb.greatest(sr.get(HuntingTimeLine_.registeredDateTime)).as(HuntingTimeLine.class));
+		subQuery.select(cb.greatest(sr.get(HuntingTimeLine_.registeredDateTime)).as(HuntingTimeLine.class)).
+		where(cb.equal(sr.get(HuntingTimeLine_.huntingTimeLineId).get(HuntingTimeLineId_.userId), userId));
 		List<Predicate> preds = new ArrayList<>();
 		preds.add(cb.equal(r.get(HuntingTimeLine_.huntingModel).get(HuntingModel_.userId), userId));
 		preds.add(r.get(HuntingTimeLine_.registeredDateTime).in(subQuery));

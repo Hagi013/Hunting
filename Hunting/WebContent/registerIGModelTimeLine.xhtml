@@ -58,28 +58,46 @@
 								<th>コメント</th>
 							</tr>
 							<tr>
-								<td><p:inputText id="timeline_userId" placeholder="UserId"
+								<td><h:outputLabel
 										value="#{adminRegistController.huntingTimeLine.huntingTimeLineId.userId}" /></td>
 
-								<td><p:inputText id="timeline_timeLineId" placeholder="TimeLineId"
+								<td><p:inputText placeholder="TimeLineId"
 										value="#{adminRegistController.huntingTimeLine.huntingTimeLineId.timeLineId}" /></td>
 
-								<td><p:inputText id="timeLineImageUrl" placeholder="TimeLine画像のURL"
+								<td><p:inputText placeholder="TimeLine画像のURL"
 										value="#{adminRegistController.huntingTimeLine.timeLineImageUrl}" /></td>
 
-								<td><h:inputFile id="timeLineImage"
+								<td><h:inputFile
 										value="#{adminRegistController.uploadedFile}" /></td>
 
-								<td><p:inputText id="timeline_comment" placeholder="コメント"
+								<td><p:inputText placeholder="コメント"
 										value="#{adminRegistController.huntingTimeLine.text}" /></td>
 
-								<td><p:inputText id="timeline_createdTime" placeholder="登録時間"
-										value="#{adminRegistController.huntingTimeLine.createdTime}" /></td>										
+								<td><p:inputText placeholder="登録時間"
+										value="#{adminRegistController.huntingTimeLine.createdTime}" /></td>
 							</tr>
 						</Table>
 						<p:commandButton class="btn btn-primary btn-sm" value="Register"
 							action="#{adminRegistController.registerTimeLine}" ajax="false">
 						</p:commandButton>
+					</h:form>
+					<hr />
+					<h:outputLabel value="更新" />
+					<h:form>
+						<div
+							class="row col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							<p:repeat
+								value="#{adminRegistController.huntingTimeLineList}"
+								var="timeLine">
+								<br />
+								<h:commandLink
+									action="#{adminUpdateController.moveToUpdateTimeLine(timeLine)}">
+									<p:graphicImage value="#{timeLine.timeLineImageUrl}"
+										style="width:250px;height:auto;max-height:250px;">
+									</p:graphicImage>
+								</h:commandLink>
+							</p:repeat>
+						</div>
 					</h:form>
 				</div>
 			</div>

@@ -69,11 +69,15 @@
 											<a href="#{goods.goodsUrl}"> <p:repeat
 													value="#{goods.huntingGoodsImages}" var="goodsImage">
 													<p:graphicImage
+														value="#{goodsImage.goodsImageUrl}"
+														style="width:75px;height:auto;max-height:75px;">
+													</p:graphicImage>
+													<!-- <p:graphicImage
 														value="#{timeLineController.convertGoodsIndivImg}"
 														style="width:75px;height:auto;max-height:75px;">
 														<f:param name="igGoodsImageId"
 															value="#{goodsImage.goodsImageId}" />
-													</p:graphicImage>
+													</p:graphicImage> -->
 												</p:repeat>
 											</a>
 										</p:repeat>

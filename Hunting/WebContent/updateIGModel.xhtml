@@ -13,7 +13,7 @@
 	<meta name="description" content="" />
 	<meta name="author" content="" />
 
-	<title>Hunting!! Find your Favorite!!</title>
+	<title>Update Model Info.</title>
 
 	<!-- Bootstrap Core CSS -->
 	<!-- <h:outputStylesheet name="bootstrap.min.css" library="./../css" /> -->
@@ -54,43 +54,21 @@
 								<th>モデルID</th>
 								<th>表示名</th>
 								<th>写真のURL</th>
-								<th>写真</th>
 							</tr>
 							<tr>
-								<td><p:inputText id="userId" placeholder="UserId"
-										value="#{adminRegistController.huntingModel.userId}" /></td>
-								<td><p:inputText id="displayName" placeholder="表示名"
-										value="#{adminRegistController.huntingModel.displayName}" /></td>
-								<td><p:inputText id="modelImageUrl" placeholder="画像のURL"
-										value="#{adminRegistController.huntingModel.profilePictureUrl}" /></td>
-								<td><h:inputFile id="modelImage"
-										value="#{adminRegistController.uploadedFile}" /></td>
+								<td><p:outputLabel 
+										value="#{adminUpdateController.targetModel.userId}" /></td>
+								<td><p:inputText placeholder="表示名"
+										value="#{adminUpdateController.targetModel.displayName}" /></td>
+								<td><p:inputText placeholder="画像のURL"
+										value="#{adminUpdateController.targetModel.profilePictureUrl}" /></td>
 							</tr>
 						</Table>
-						<p:commandButton class="btn btn-primary btn-sm" value="Register"
-							action="#{adminRegistController.registerModel}" ajax="false">
+						<p:commandButton class="btn btn-primary btn-sm" value="Update"
+							action="#{adminUpdateController.updateModel}" ajax="false">
 						</p:commandButton>
 					</h:form>
 					<hr />
-					<h:outputLabel value="更新" />
-					<h:form>
-						<ui:repeat value="#{adminUpdateController.huntingModelList}"
-							var="model">
-							<div class="col-xs-6 col-sm-6 col-md-3 col-lg-2">
-								<h:commandLink
-									action="#{adminUpdateController.moveToUpdateModel(model)}">
-									<p:graphicImage class="img-circle img-responsive img-center"
-										value="#{model.profilePictureUrl}"
-										style="width:100%;height:auto;max-height:300px;">
-									</p:graphicImage>
-								</h:commandLink>
-								<h3>
-									<h:outputLabel style="white-space: nowrap;"
-										class="userLimitedChar" value="#{model.userId}" />
-								</h3>
-							</div>
-						</ui:repeat>
-					</h:form>
 				</div>
 			</div>
 			<!-- /.container -->

@@ -49,24 +49,25 @@
 					</div>
 				</div>
 			</header>
-
+			
+			<h:outputText value="#{requestScope.accessToken}" />
+			<h:outputText value="#{sessionScope.accessToken}" />
+			
 			<!-- Page Content -->
 			<div class="container">
 				<div class="row">
 					<h:form>
-						<p>
-							<h:commandButton class="btn btn-primary"
-								action="#{adminRegistController.gotoModelRegister}"
-								value="search model" />
-							<h:commandButton class="btn btn-danger"
-								action="#{adminRegistController.gotoTimeLineRegister}"
-								value="register timeLine" />
-						</p>
+						<h:commandButton class="btn btn-primary"
+							action="#{instagramAPIController.gotoModelSearcher}"
+							value="search model" >
+							<f:param name="AuthorizedAccessToken" value="#{requestScope.accessToken}" />
+						</h:commandButton>
+						<h:commandButton class="btn btn-danger"
+							action="#{instagramAPIController.gotoTimeLineRegister}"
+							value="register timeLine" />
 					</h:form>
 				</div>
 				<!-- /.row -->
-
-				<hr />
 
 				<div class="row">
 					<div class="col-sm-8"></div>

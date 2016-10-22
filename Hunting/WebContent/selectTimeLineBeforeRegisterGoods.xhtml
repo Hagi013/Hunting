@@ -16,10 +16,11 @@
 	<title>商品の登録をしてください。</title>
 
 	<!-- Bootstrap Core CSS -->
-	<!-- <h:outputStylesheet name="bootstrap.min.css" library="./../css" /> -->
+	<link href="css/bootstrap.min.css" rel="stylesheet" />
 
 	<!-- Custom CSS -->
-	<!-- <h:outputStylesheet name="1-col-portfolio.css" library="./../css" /> -->
+	<link href="css/1-col-portfolio.css" rel="stylesheet" />
+
 
 
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -47,26 +48,26 @@
 			<div class="container">
 				<div class="row">
 					<h:form>
-						<h:dataTable value="#{adminRegistController.huntingTimeLineList}"
-							var="timeLine">
-							<h:column>
-								<div class="col-sm-1">
-									<h:commandLink
-										action="#{adminRegistController.moveToRegisterTimeLineGoods(timeLine)}">
-										<p:graphicImage
+						<div
+							class="row col-xs-12 col-sm-12 col-md-12 col-lg-12 center-timeline">
+							<p:repeat value="#{adminRegistController.huntingTimeLineList}"
+								var="timeLine">
+								<h:commandLink
+									action="#{adminRegistController.moveToRegisterTimeLineGoods(timeLine)}">
+									<p:graphicImage value="#{timeLine.timeLineImageUrl}"
+										style="width:250px;height:auto;max-height:250px;">
+									</p:graphicImage>
+									<!-- <p:graphicImage
 											value="#{adminRegistController.convertTimeLineImg}"
 											style="width:500px;height:auto;max-height:500px;">
 											<f:param name="modelIdAdmin"
 												value="#{timeLine.huntingTimeLineId.userId}" />
 											<f:param name="timeLineIdAdmin"
 												value="#{timeLine.huntingTimeLineId.timeLineId}" />
-										</p:graphicImage>
-									</h:commandLink>
-									<h:outputText value="#{timeLine.text}" />
-									<hr />
-								</div>
-							</h:column>
-						</h:dataTable>
+										</p:graphicImage> -->
+								</h:commandLink>
+							</p:repeat>
+						</div>
 					</h:form>
 				</div>
 			</div>

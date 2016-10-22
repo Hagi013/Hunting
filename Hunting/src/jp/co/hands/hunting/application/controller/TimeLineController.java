@@ -140,10 +140,11 @@ public class TimeLineController extends BaseController {
 		HuntingTimeLine huntingTimeLine = huntingTimeLineRepository.getLatestTimeLine(userId).get(0);
 		
 		// huntingTimeLineに値が入っていなかった場合
-		if(!Optional.ofNullable(huntingTimeLine).isPresent()) {
+		if(!Optional.ofNullable(huntingTimeLine.getHuntingTimeLineId().getTimeLineId()).isPresent()) {
 			System.out.println("TimeLineの画像取得に失敗");
 			return null;
-		}		
+		}	
+		System.out.println("確認：　　　　"+ huntingTimeLine.getHuntingTimeLineId().getTimeLineId());
 		return  huntingTimeLine.getTimeLineImageUrl();
 	}
 	

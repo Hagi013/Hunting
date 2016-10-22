@@ -79,6 +79,10 @@ public class AdminRegistController extends BaseController {
 	@Setter
 	private Part uploadedFile;
 
+	@Getter
+	@Setter
+	private String goodsImageUrl;
+	
 	/** method area */
 
 	/**
@@ -91,12 +95,12 @@ public class AdminRegistController extends BaseController {
 	}
 
 	/**
-	 * タイムラインの登録ページへ移動
+	 * タイムラインの登録前のモデル選択ページへ移動
 	 */
 	public String gotoTimeLineRegister() {
-
+		this.huntingModelList = huntingModelRepository.findAll();
 		this.huntingTimeLine = HuntingTimeLine.builder().huntingTimeLineId(HuntingTimeLineId.builder().build()).build();
-		return redirectTo("/registerIGModelTimeLine");
+		return redirectTo("/selectModelBeforeRegisterTimeLine");
 	}
 
 	/**
@@ -116,7 +120,7 @@ public class AdminRegistController extends BaseController {
 
 		HuntingModel targetModel = this.huntingModel;
 
-		System.out.println("uploadedFile" + uploadedFile);
+		// 不要となる予定
 		Part uploadedFile = this.uploadedFile;
 
 		if (this.huntingModel.getUserId() == null) {
@@ -124,7 +128,8 @@ public class AdminRegistController extends BaseController {
 			System.out.println("UserId" + this.huntingModel.getUserId());
 			return;
 		}
-
+		
+		// 不要となる予定
 		if (Optional.ofNullable(uploadedFile).isPresent()) {
 			targetModel.setProfilePicture(UploadFileHundler.fileHundle(uploadedFile));
 			System.out.println("変えました");
@@ -149,39 +154,67 @@ public class AdminRegistController extends BaseController {
 	}
 
 	/**
-	 * Instagram ユーザのタイムラインを登録する
+	 * タイムラインの登録ページへ遷移する
+	 * @param targetModel タイムラインを表示するモデル
+	 * @return pageURL
+	*/
+	public String moveToRegisterTimeLinePage(HuntingModel targetModel) {
+		
+		if(!Optional.ofNullable(targetModel.getUserId()).isPresent()) {
+			addMessage(FacesMessage.SEVERITY_ERROR, "", "もう一度モデルを選択してください。");
+		}
+		
+		String userId = targetModel.getUserId();
+		this.huntingTimeLineList = huntingTimeLineRepository.getByModelId(userId);
+		this.huntingTimeLine.getHuntingTimeLineId().setUserId(userId);
+		return redirectTo("/registerIGModelTimeLine");
+	}
+	
+	
+	/**
+	 * Instagram ユーザのタイムラインを新規登録する
 	 *
 	 */
 	public void registerTimeLine() {
 
 		HuntingTimeLine huntingTimeLine = this.huntingTimeLine;
-
+		
+		// ユーザIDがセットされていなかった場合
 		if (!Optional.ofNullable(huntingTimeLine.getHuntingTimeLineId().getUserId()).isPresent()) {
 			addMessage(FacesMessage.SEVERITY_ERROR, "", "ユーザIDを入力してください。");
 			return;
 		}
-
+		
+		// タイムラインIDがセットされていなかった場合
 		if (!Optional.ofNullable(huntingTimeLine.getHuntingTimeLineId().getTimeLineId()).isPresent()) {
 			addMessage(FacesMessage.SEVERITY_ERROR, "", "タイムラインIDを入力してください。");
 			return;
 		}
-
+		
+		// タイムライン画像のURLがセットされていなかった場合
+		if (!Optional.ofNullable(huntingTimeLine.getTimeLineImageUrl()).isPresent()) {
+			addMessage(FacesMessage.SEVERITY_ERROR, "", "timeline画像のURLを入力してください。");
+			return;
+		}
+		
+		//　不要となる予定
 		Part uploadedFile = this.uploadedFile;
 		if (Optional.ofNullable(uploadedFile).isPresent()) {
 			huntingTimeLine.setTimeLineImage(UploadFileHundler.fileHundle(uploadedFile));
 		}
-
+		
 		huntingTimeLineRepository.save(huntingTimeLine, huntingTimeLine.getHuntingTimeLineId());
 
 		addMessage(FacesMessage.SEVERITY_INFO, "", "登録が完了しました。");
 
 	}
 
+	
 	/**
 	 * モデルの画像を取得する
 	 * 
 	 */
-	public StreamedContent getConvertModelImg() {
+	/*public StreamedContent getConvertModelImg() {
 
 		FacesContext con = FacesContext.getCurrentInstance();
 		if (con.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE) {
@@ -191,7 +224,7 @@ public class AdminRegistController extends BaseController {
 
 		return new DefaultStreamedContent(
 				new ByteArrayInputStream(huntingModelRepository.findByKey(userId).getProfilePicture()));
-	}
+	}*/
 
 	/**
 	 * タイムラインの選択画面へ遷移する。
@@ -211,7 +244,7 @@ public class AdminRegistController extends BaseController {
 	 * モデルのタイムラインの画像を取得する
 	 * 
 	 */
-	public StreamedContent getConvertTimeLineImg() {
+	/*public StreamedContent getConvertTimeLineImg() {
 
 		FacesContext con = FacesContext.getCurrentInstance();
 
@@ -224,7 +257,7 @@ public class AdminRegistController extends BaseController {
 		HuntingTimeLine huntingTimeLine = huntingTimeLineRepository.findByKey(huntingTimeLineId);
 
 		return new DefaultStreamedContent(new ByteArrayInputStream(huntingTimeLine.getTimeLineImage()));
-	}
+	}*/
 
 	/**
 	 * 商品の登録ページへ移動する。
@@ -262,13 +295,22 @@ public class AdminRegistController extends BaseController {
 		}
 
 		// 画像があるかチェック ⇒ なければ画像を入れてもらう。
-		if (!Optional.ofNullable(this.uploadedFile).isPresent()) {
-			addMessage(FacesMessage.SEVERITY_ERROR, "", "画像をいれてください");
+		if (!Optional.ofNullable(this.uploadedFile).isPresent() &&
+				!Optional.ofNullable(goodsImageUrl).isPresent()) {
+			addMessage(FacesMessage.SEVERITY_ERROR, "", "画像もしくは画像のURLをいれてください");
 			return;
 		}
 
 		// 画像をbyte配列へ変換し、登録予定のhuntingGoodsへセットする。
-		huntingGoodsImage.setGoodsImageData(UploadFileHundler.fileHundle(this.uploadedFile));
+		if(Optional.ofNullable(this.uploadedFile).isPresent()) {
+			huntingGoodsImage.setGoodsImageData(UploadFileHundler.fileHundle(this.uploadedFile));
+		}
+		
+		// 画像のURLを登録予定のhuntingGoodsへセットする。
+		if(Optional.ofNullable(goodsImageUrl).isPresent()) {
+			huntingGoodsImage.setGoodsImageUrl(goodsImageUrl);
+		}
+	
 		huntingGoodsImageList.add(huntingGoodsImage);
 		huntingGoods.setHuntingGoodsImages(huntingGoodsImageList);
 

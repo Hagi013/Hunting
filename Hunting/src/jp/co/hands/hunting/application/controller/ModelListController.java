@@ -18,7 +18,6 @@ import jp.co.hands.hunting.application.helper.JsfManagedObjectFetcher;
 import jp.co.hands.hunting.controller.BaseController;
 import jp.co.hands.hunting.entity.model.impl.HuntingModel;
 import jp.co.hands.hunting.repository.impl.HuntingModelRepository;
-import jp.co.hands.hunting.repository.impl.HuntingTimeLineRepository;
 import lombok.Getter;
 import lombok.Setter;
 
