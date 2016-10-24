@@ -61,11 +61,12 @@
 										value="#{model.profilePictureUrl}"
 										style="width:100%;height:auto;max-height:300px;">
 									</p:graphicImage>
+									<h3>
+										<h:outputLabel style="white-space: nowrap;"
+											class="userLimitedChar" value="#{model.userId}" />
+									</h3>
 								</h:commandLink>
-								<h3>
-									<h:outputLabel style="white-space: nowrap;"
-										class="userLimitedChar" value="#{model.userId}" />
-								</h3>
+
 							</div>
 						</ui:repeat>
 					</h:form>
