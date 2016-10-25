@@ -69,6 +69,10 @@ public class AdminRegistController extends BaseController {
 
 	@Getter
 	@Setter
+	private List<HuntingGoods> huntingGoodsList;
+	
+	@Getter
+	@Setter
 	private HuntingGoodsImage huntingGoodsImage;
 
 	@Getter
@@ -269,7 +273,11 @@ public class AdminRegistController extends BaseController {
 			this.huntingTimeLine = huntingTimeLine;
 			this.huntingGoods = HuntingGoods.builder().huntingTimeLine(huntingTimeLine).build();
 			this.huntingGoodsImage = HuntingGoodsImage.builder().build();
-			this.huntingGoodsImageList = new ArrayList<>();
+			String targetUserId = huntingTimeLine.getHuntingTimeLineId().getUserId();
+			String targetTimeLineId = huntingTimeLine.getHuntingTimeLineId().getTimeLineId();
+			
+			// 更新用に取得
+			this.huntingGoodsList = huntingGoodsRepository.fetchGoodsByUserAndTimeLine(targetUserId, targetTimeLineId);
 			return redirectTo("/registerTimeLineGoods");
 		}
 
@@ -286,7 +294,7 @@ public class AdminRegistController extends BaseController {
 
 		HuntingGoods huntingGoods = this.huntingGoods;
 		HuntingGoodsImage huntingGoodsImage = this.huntingGoodsImage;
-		List<HuntingGoodsImage> huntingGoodsImageList = this.huntingGoodsImageList;
+		List<HuntingGoodsImage> huntingGoodsImageList = new ArrayList<>();
 
 		// ありえないがhuntingGoodsインスタンスが存在していることを確認 ⇒ なければタイムラインの選択ページへ戻って再選択してもらう。
 		if (!Optional.ofNullable(huntingGoods).isPresent()) {
@@ -331,12 +339,12 @@ public class AdminRegistController extends BaseController {
 		}
 
 		// DBに選択したタイムラインに関する商品が登録されていた場合、すでに登録されているURLではないか確認。
-		for (HuntingGoods compareGoods : cpList) {
+		/*for (HuntingGoods compareGoods : cpList) {
 			if (compareGoods.getGoodsUrl().equals(url)) {
 				addMessage(FacesMessage.SEVERITY_ERROR, "", "すでに同じURLが登録されています。");
 				return;
 			}
-		}
+		}*/
 		huntingGoodsRepository.save(huntingGoods);
 		addMessage(FacesMessage.SEVERITY_INFO, "", "商品の登録が完了しました。");
 

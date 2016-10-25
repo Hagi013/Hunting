@@ -11,10 +11,14 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import jp.co.hands.hunting.controller.BaseController;
+import jp.co.hands.hunting.entity.model.impl.HuntingGoods;
+import jp.co.hands.hunting.entity.model.impl.HuntingGoodsImage;
 import jp.co.hands.hunting.entity.model.impl.HuntingModel;
 import jp.co.hands.hunting.entity.model.impl.HuntingTimeLine;
 import jp.co.hands.hunting.entity.model.impl.HuntingTimeLineId;
 import jp.co.hands.hunting.repository.impl.HuntingTimeLineRepository;
+import jp.co.hands.hunting.repository.impl.HuntingGoodsImageRepository;
+import jp.co.hands.hunting.repository.impl.HuntingGoodsRepository;
 import jp.co.hands.hunting.repository.impl.HuntingModelRepository;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,7 +32,13 @@ public class AdminUpdateController extends BaseController {
 	private HuntingModelRepository huntingModelRepository;
 	
 	@Inject
-	private  HuntingTimeLineRepository huntingTimeLineRepository;
+	private HuntingTimeLineRepository huntingTimeLineRepository;
+	
+	@Inject
+	private HuntingGoodsRepository huntingGoodsRepository;
+	
+	@Inject
+	private HuntingGoodsImageRepository huntingGoodsImageRepository;
 	
 	@Getter @Setter
 	private List<HuntingModel> huntingModelList;
@@ -39,6 +49,14 @@ public class AdminUpdateController extends BaseController {
 	@Getter @Setter
 	private HuntingTimeLine targetTimeLine;
 	
+	@Getter @Setter
+	private HuntingGoods targetGoods;
+	
+	@Getter @Setter
+	private HuntingGoodsImage targetGoodsImage;
+	
+	/*@Getter @Setter
+	private String targetGoodsImageUrl;*/
 	
 	@PostConstruct
 	public void init() {
@@ -132,5 +150,55 @@ public class AdminUpdateController extends BaseController {
 	}
 	
 	
+	/**
+	 * 商品更新ページへ遷移
+	 * 
+	*/
+	public String moveToUpdateGoods(HuntingGoodsImage targetGoodsImage) {
+
+		this.targetGoodsImage = targetGoodsImage;
+		this.targetGoods = targetGoodsImage.getHuntingGoods();
+		return redirectTo("/updateTimeLineGoods");
+	}
 	
+	/**
+	 * 商品更新
+	 * 
+	*/
+	public void updateGoods() {
+		
+		// 商品が選択されているか
+		if(!Optional.ofNullable(targetGoods.getGoodsId()).isPresent()) {
+
+			addMessage(FacesMessage.SEVERITY_ERROR, "", "再度商品を選択してください。");
+			return;
+		}
+		
+		long goodsId = this.targetGoods.getGoodsId();
+		
+		// 商品がDBに存在しているか
+		if(!Optional.ofNullable(huntingGoodsRepository.findByKey(goodsId)).isPresent()) {			
+
+			addMessage(FacesMessage.SEVERITY_ERROR, "", "商品はすでに削除されています。");
+			return;
+		}
+		// 登録対象のgoodsImageが存在しているか
+		if(!Optional.ofNullable(targetGoodsImage.getGoodsImageId()).isPresent()) {
+			
+			addMessage(FacesMessage.SEVERITY_ERROR, "", "もう一度更新対象の商品を選択してください。");
+			return;
+		} 
+
+		// GoodsImageがDBに登録されているか
+		if(!Optional.ofNullable(huntingGoodsImageRepository.findByKey(targetGoodsImage.getGoodsImageId())).isPresent()) {
+			
+			addMessage(FacesMessage.SEVERITY_ERROR, "", "更新対象の商品はすでに削除されています。");
+			return;
+		} 
+		
+		huntingGoodsRepository.updata(targetGoods, goodsId);;
+		huntingGoodsImageRepository.updata(targetGoodsImage, targetGoodsImage.getGoodsImageId());
+		addMessage(FacesMessage.SEVERITY_INFO, "", "正常に更新が完了しました。");
+	}
+		
 }

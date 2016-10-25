@@ -53,23 +53,21 @@
 							<tr>
 								<th>モデルID</th>
 								<th>タイムラインID</th>
-								<th>商品の画像</th>
 								<th>商品の画像のURL</th>
 								<th>商品名</th>
 								<th>URL</th>
-								<th>商品の値段</th>								
+								<th>商品の値段</th>
 							</tr>
 							<tr>
 								<td><p:inputText id="goods_userId" placeholder="UserId"
 										value="#{adminRegistController.huntingGoods.huntingTimeLine.huntingTimeLineId.userId}" /></td>
 
-								<td><p:inputText id="goods_timeLineId" placeholder="TimeLineId"
+								<td><p:inputText id="goods_timeLineId"
+										placeholder="TimeLineId"
 										value="#{adminRegistController.huntingGoods.huntingTimeLine.huntingTimeLineId.timeLineId}" /></td>
 
-								<td><h:inputFile id="goods_image"
-										value="#{adminRegistController.uploadedFile}" /></td>
-
-								<td><p:inputText id="goods_image_url" placeholder="GoodsUrl"
+								<td><p:inputText id="goods_image_url"
+										placeholder="GoodsUrl"
 										value="#{adminRegistController.goodsImageUrl}" /></td>
 
 								<td><p:inputText id="goods_name" placeholder="GoodsName"
@@ -80,12 +78,31 @@
 
 								<td><p:inputText id="goods_price" placeholder="GoodsPrice"
 										value="#{adminRegistController.huntingGoods.goodsPrice}" /></td>
-																				
+
 							</tr>
 						</Table>
 						<p:commandButton class="btn btn-primary btn-sm" value="Register"
 							action="#{adminRegistController.registerGoods}" ajax="false">
 						</p:commandButton>
+					</h:form>
+					<hr />
+					<h:outputLabel value="更新" />
+					<h:form>
+						<p:repeat value="#{adminRegistController.huntingGoodsList}"
+							var="huntingGoods">
+							<div
+								class="row col-xs-12 col-sm-12 col-md-12 col-lg-12 center-timeline">
+								<p:repeat value="#{huntingGoods.huntingGoodsImages}"
+									var="goodsImage">
+									<h:commandLink
+										action="#{adminUpdateController.moveToUpdateGoods(goodsImage)}">
+										<p:graphicImage value="#{goodsImage.goodsImageUrl}"
+											style="width:250px;height:auto;max-height:250px;">
+										</p:graphicImage>
+									</h:commandLink>
+								</p:repeat>
+							</div>
+						</p:repeat>
 					</h:form>
 				</div>
 			</div>
