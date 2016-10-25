@@ -55,8 +55,6 @@ public class AdminUpdateController extends BaseController {
 	@Getter @Setter
 	private HuntingGoodsImage targetGoodsImage;
 	
-	/*@Getter @Setter
-	private String targetGoodsImageUrl;*/
 	
 	@PostConstruct
 	public void init() {
