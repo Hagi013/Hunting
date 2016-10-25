@@ -1,0 +1,104 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="description" content="" />
+	<meta name="author" content="" />
+
+	<title>Register Instagramer.</title>
+
+	<!-- Bootstrap Core CSS -->
+	<link href="css/bootstrap.min.css" rel="stylesheet" />
+
+	<!-- Custom CSS -->
+	<link href="css/1-col-portfolio.css" rel="stylesheet" />
+
+
+	<!-- jQuery -->
+	<h:outputScript library="primefaces" name="jquery/jquery.js" />
+	<h:outputScript library="primefaces" name="jquery/jquery-plugins.js" />
+
+
+	<!-- Bootstrap Core JavaScript -->
+	<h:outputScript library="js" name="bootstrap.min.js" />
+
+
+</h:head>
+
+<h:body>
+
+	<ui:composition template="./application/template.xhtml">
+		<ui:define name="content">
+
+			<!-- Image Background Page Header -->
+			<!-- Note: The background image is set within the business-casual.css file. -->
+			<header class="business-header">
+				<div class="container">
+					<div class="row"></div>
+				</div>
+			</header>
+
+			<!-- Page Content -->
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-1">
+						<div class="center">
+							<h:form>
+								<div class="row col-xs-12 col-sm-12 col-md-12 col-lg-12">
+									<div class="parent">
+										<p:graphicImage class="img-circle"
+											value="#{instagramAPIController.igModelInfo.profilePicture}"
+											style="width:80px;height:auto;max-height:80px;">
+											<!-- <f:param name="igModelId"
+													value="#{timeLine.huntingTimeLineId.userId}" />
+												<f:param name="igTimeLineId"
+													value="#{timeLine.huntingTimeLineId.timeLineId}" /> -->
+										</p:graphicImage>
+										<div class="inner">
+											<h:outputLabel style="white-space: nowrap;"
+												value="#{instagramAPIController.igModelInfo.id}" />
+											<h:outputLabel style="white-space: nowrap;"
+												value="#{instagramAPIController.igModelInfo.userName}" />
+											<h:outputLabel style="white-space: nowrap;"
+												value="#{instagramAPIController.igModelInfo.fullName}" />
+											<h:outputLabel style="white-space: nowrap;"
+												value="#{instagramAPIController.igModelInfo.bio}" />
+											<h:outputLabel style="white-space: nowrap;"
+												value="#{instagramAPIController.igModelInfo.website}" />
+											<h:commandButton class="btn btn-warning"
+												action="#{instagramAPIController.registerIgModelFromIG}"
+												value="register" />
+										</div>
+									</div>
+								</div>
+							</h:form>
+						</div>
+					</div>
+				</div>
+				<!-- /.row -->
+
+
+				<hr />
+
+				<div class="row">
+					<div class="col-sm-8"></div>
+				</div>
+				<!-- /.row -->
+				<hr />
+
+			</div>
+			<!-- /.container -->
+
+		</ui:define>
+	</ui:composition>
+</h:body>
+
+</html>
