@@ -88,6 +88,18 @@
 											class="userLimitedChar" value="#{model.userId}" />
 									</h3>
 								</h:commandLink>
+									<p:commandButton value="削除"
+										action="#{adminDeleteController.deleteModel(model)}">
+										<p:confirm header="Confirm　to Delete Model."
+											message="#{model.userId}を削除してよいですか？" icon="ui-icon-alert" />
+									</p:commandButton>
+									<p:confirmDialog global="true" showEffect="fade"
+										hideEffect="fade">
+										<p:commandButton value="OK" 
+											styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+										<p:commandButton value="NO" 
+											styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+									</p:confirmDialog>
 							</div>
 						</ui:repeat>
 					</h:form>

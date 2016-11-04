@@ -97,6 +97,13 @@
 											style="width:250px;height:auto;max-height:250px;">
 										</p:graphicImage>
 									</h:commandLink>
+									<p:commandButton value="削除" actionListener="#{adminDeleteController.deleteRelateToGoods(goodsImage)}">
+										<p:confirm header="Confirm To Delete Goods" message="削除しても良いですか" icon="ui-icon-alert" />
+									</p:commandButton>
+									<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+										<p:commandButton value="OK" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+										<p:commandButton value="NO" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+									</p:confirmDialog>
 								</p:repeat>
 							</div>
 						</p:repeat>

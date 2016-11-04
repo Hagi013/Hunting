@@ -84,10 +84,8 @@
 					<hr />
 					<h:outputLabel value="更新" />
 					<h:form>
-						<div
-							class="row col-xs-12 col-sm-12 col-md-12 col-lg-12">
-							<p:repeat
-								value="#{adminRegistController.huntingTimeLineList}"
+						<div class="row col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							<p:repeat value="#{adminRegistController.huntingTimeLineList}"
 								var="timeLine">
 								<br />
 								<h:commandLink
@@ -97,6 +95,16 @@
 									</p:graphicImage>
 									<h:outputLabel value="#{timeLine.huntingTimeLineId.timeLineId}" />
 								</h:commandLink>
+								<p:commandButton value="削除"
+									actionListener="#{adminDeleteController.deleteTimeLine(timeLine)}">
+									<p:confirm header="Confirm To Delete TimeLine"
+										message="#{timeLine.huntingTimeLineId.userId}のタイムラインNo.#{timeLine.huntingTimeLineId.timeLineId}を削除してもよいですか？"
+										icon="ui-icon-alert" />
+								</p:commandButton>
+								<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+									<p:commandButton value="OK" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+									<p:commandButton value="NO" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+								</p:confirmDialog>
 							</p:repeat>
 						</div>
 					</h:form>

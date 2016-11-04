@@ -56,7 +56,7 @@
 								<th>写真のURL</th>
 							</tr>
 							<tr>
-								<td><p:outputLabel 
+								<td><p:outputLabel
 										value="#{adminUpdateController.targetModel.userId}" /></td>
 								<td><p:inputText placeholder="表示名"
 										value="#{adminUpdateController.targetModel.displayName}" /></td>
@@ -69,6 +69,21 @@
 						</p:commandButton>
 					</h:form>
 					<hr />
+					<h:form>
+						<p:growl id="deleteMessage" showDetail="true" closable="true" />
+						<p:commandButton value="削除"
+							action="#{adminDeleteController.deleteModel(adminUpdateController.targetModel)}"
+							update="deleteMessage">
+							<p:confirm header="Confirm　to Delete Model."
+								message="#{adminUpdateController.targetModel.userId}を削除してよいですか？" icon="ui-icon-alert" />
+						</p:commandButton>
+						<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+							<p:commandButton value="OK" styleClass="ui-confirmdialog-yes"
+								icon="ui-icon-check" />
+							<p:commandButton value="NO" styleClass="ui-confirmdialog-no"
+								icon="ui-icon-close" />
+						</p:confirmDialog>
+					</h:form>
 				</div>
 			</div>
 			<!-- /.container -->

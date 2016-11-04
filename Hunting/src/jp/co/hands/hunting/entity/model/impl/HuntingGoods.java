@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.PostPersist;
@@ -21,9 +22,12 @@ import jp.co.hands.hunting.entity.model.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
+@EqualsAndHashCode(exclude="huntingTimeLine")
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -43,6 +47,7 @@ public class HuntingGoods extends BaseEntity {
 	@Column(name="goods_price")
 	private int goodsPrice;
 	
+	@Lob
 	@Column(name="goods_url")
 	private String goodsUrl;
 	
@@ -51,8 +56,8 @@ public class HuntingGoods extends BaseEntity {
 	
 	@ManyToOne(targetEntity=HuntingTimeLine.class)
 	@JoinColumns(value={
-			@JoinColumn(name="user_id", referencedColumnName="user_id"),
-			@JoinColumn(name="timeline_id", referencedColumnName="timeline_id")})
+			@JoinColumn(name="user_id", referencedColumnName="user_id", updatable=false),
+			@JoinColumn(name="timeline_id", referencedColumnName="timeline_id", updatable=false)})
 	private HuntingTimeLine huntingTimeLine;	
 	
 	@OneToMany(targetEntity=HuntingGoodsImage.class, cascade=CascadeType.ALL, mappedBy="huntingGoods" )

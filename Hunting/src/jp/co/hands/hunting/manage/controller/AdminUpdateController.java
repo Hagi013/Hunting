@@ -176,7 +176,7 @@ public class AdminUpdateController extends BaseController {
 		
 		// 商品がDBに存在しているか
 		if(!Optional.ofNullable(huntingGoodsRepository.findByKey(goodsId)).isPresent()) {			
-
+			System.out.println("goodsId?:   " +goodsId);
 			addMessage(FacesMessage.SEVERITY_ERROR, "", "商品はすでに削除されています。");
 			return;
 		}
