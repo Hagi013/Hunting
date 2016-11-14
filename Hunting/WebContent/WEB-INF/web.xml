@@ -4,9 +4,19 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
 	version="3.1">
 	<display-name>Hunting</display-name>
-	<welcome-file-list>
-		<welcome-file>/faces/huntingUser.html</welcome-file>
-	</welcome-file-list>
+
+	<filter>
+		<filter-name>Pretty Filter</filter-name>
+		<filter-class>org.ocpsoft.pretty.PrettyFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>Pretty Filter</filter-name>
+		<url-pattern>/*</url-pattern>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+	</filter-mapping>
 	
 	<servlet>
 		<servlet-name>Faces Servlet</servlet-name>
@@ -14,16 +24,11 @@
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 
-	<!-- <servlet>
-		<display-name>IGOAuthCallBackServlet</display-name>
-		<servlet-name>IGOAuthCallBackServlet</servlet-name>
-		<servlet-class>jp.co.hands.hunting.manage.instagram.api.oauth.servlet.IGOAuthCallBackServlet</servlet-class>
-	</servlet>
-		<servlet-mapping>
-		<servlet-name>IGOAuthCallBackServlet</servlet-name>
-		<url-pattern>/IGOAuthCallBackServlet</url-pattern>
-	</servlet-mapping> -->
-	
+	<!-- <servlet> <display-name>IGOAuthCallBackServlet</display-name> <servlet-name>IGOAuthCallBackServlet</servlet-name> 
+		<servlet-class>jp.co.hands.hunting.manage.instagram.api.oauth.servlet.IGOAuthCallBackServlet</servlet-class> 
+		</servlet> <servlet-mapping> <servlet-name>IGOAuthCallBackServlet</servlet-name> 
+		<url-pattern>/IGOAuthCallBackServlet</url-pattern> </servlet-mapping> -->
+
 	<servlet-mapping>
 		<servlet-name>Faces Servlet</servlet-name>
 		<url-pattern>/faces/*</url-pattern>
@@ -35,5 +40,13 @@
 		<param-value>bootstrap</param-value>
 	</context-param>
 
+	<context-param>
+		<param-name>com.ocpsoft.pretty.BASE_PACKAGES</param-name>
+		<param-value>com.example.myapp,com.ocpsoft</param-value>
+	</context-param>
 
+	<context-param>
+		<param-name>com.ocpsoft.pretty.DEVELOPMENT</param-name>
+		<param-value>true</param-value>
+	</context-param>
 </web-app>

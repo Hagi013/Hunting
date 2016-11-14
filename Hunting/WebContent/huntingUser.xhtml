@@ -19,7 +19,7 @@
 	<link href="css/bootstrap.min.css" rel="stylesheet" />
 
 	<!-- Custom CSS -->
-	<link href="css/business-frontpage.css" rel="stylesheet" />
+	<link href="css/1-col-portfolio.css" rel="stylesheet" />
 
 	<!-- jQuery -->
 	<h:outputScript library="primefaces" name="jquery/jquery.js" />
@@ -39,25 +39,23 @@
 					<h:form>
 						<p:repeat value="#{modelListController.igModelList}" var="model">
 							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 center">
-								<h:commandLink
-									action="#{timeLineController.moveToTimeLinePage(model)}">
+								<h:link outcome="huntingTimeLine?mid=#{model.userId}">
 									<p:graphicImage class="img-circle"
 										value="#{model.profilePictureUrl}"
-										style="width:80px;height:auto;max-height:80px;">
+										style="width:auto;height:auto;max-width:80px;max-height:80px;">
 									</p:graphicImage>
-									<!-- <p:graphicImage class="img-circle"
-										value="#{modelListController.convertPic}"
-										style="width:80px;height:auto;max-height:80px;">
-										<f:param name="igModelId" value="#{model.userId}" />
-									</p:graphicImage> -->
-								</h:commandLink>
+								</h:link>
 								<h3>
 									<h:outputLabel style="white-space: nowrap;"
 										class="userLimitedChar" value="#{model.displayName}" />
 								</h3>
-								<p:graphicImage value="#{timeLineController.getLatestTimeLineImg(model.userId)}"
-									style="width:250px;height:auto;max-height:250px;padding-bottom:50px;">
-								</p:graphicImage>
+								<h:link outcome="huntingTimeLine?mid=#{model.userId}">
+									<p:graphicImage
+										value="#{timeLineController.getLatestTimeLineImg(model.userId)}"
+										style="width:auto;height:auto;max-width:100%;max-height:500px;padding-bottom:50px;
+									padding-left:0px;padding-right:0px;margin-left:0px;margin-right:0px;">
+									</p:graphicImage>
+								</h:link>
 							</div>
 						</p:repeat>
 					</h:form>

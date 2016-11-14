@@ -21,7 +21,6 @@
 	<!-- Custom CSS -->
 	<link href="css/1-col-portfolio.css" rel="stylesheet" />
 
-
 	<!-- jQuery -->
 	<h:outputScript library="primefaces" name="jquery/jquery.js" />
 	<h:outputScript library="primefaces" name="jquery/jquery-plugins.js" />
@@ -29,62 +28,51 @@
 	<!-- Bootstrap Core JavaScript -->
 	<h:outputScript library="js" name="bootstrap.min.js" />
 
+	<f:metadata>
+		<f:viewParam name="mid" required="true" value="#{timeLineController.targetModelId}" />
+		<f:viewAction action="#{timeLineController.recieveDirectUrl}" />
+	</f:metadata>
+	
 </h:head>
 
 <h:body>
-
 	<ui:composition template="./application/template.xhtml">
 		<ui:define name="content">
 			<!-- Page Content -->
 			<div class="container">
 				<div class="row">
 					<h:form>
-						<div
-							class="row col-xs-12 col-sm-12 col-md-12 col-lg-12 center-timeline">
-							<p:repeat
-								value="#{timeLineController.huntingModel.huntingTimeLines}"
-								var="timeLine">
-								<br />
+						<p:repeat
+							value="#{timeLineController.huntingModel.huntingTimeLines}"
+							var="timeLine">
+							<div
+								class="col-xs-12 col-sm-12 col-md-12 col-lg-12 center">
 								<p:graphicImage value="#{timeLine.timeLineImageUrl}"
-									style="width:250px;height:auto;max-height:250px;">
+									style="width:auto;height:auto;max-width:100%;max-height:500px;
+									padding-right:0;">
 								</p:graphicImage>
-								<!-- <p:graphicImage value="#{timeLineController.convertTimeLineImg}"
-									style="width:250px;height:auto;max-height:250px;">
-									<f:param name="igModelId"
-										value="#{timeLine.huntingTimeLineId.userId}" />
-									<f:param name="igTimeLineId"
-										value="#{timeLine.huntingTimeLineId.timeLineId}" />
-								</p:graphicImage> -->
 								<div
-									class="col-xs-12 col-sm-12 col-md-12 col-lg-12 center-timeline">
+									class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 									<h:outputLabel class="center" style="white-space: nowrap;"
 										value="#{timeLine.text}" />
 								</div>
 								<div
-									class="row col-xs-12 col-sm-12 col-md-12 col-lg-12 goods-indiv-margin">
+									class="col-xs-12 col-sm-12 col-md-12 col-lg-12 goods-indiv-margin">
 									<div
-										class="row col-sm-4 col-sm-offset-4 col-md-4 col-md-offset-4 col-lg-4 col-lg-offset-4 left-goods-indiv">
-										<p:repeat
-											value="#{timeLine.huntingGoodsList}" var="goods">
+										class="row col-sm-4 col-sm-offset-4 col-md-4 col-md-offset-4 col-lg-4 col-lg-offset-4">
+										<p:repeat value="#{timeLine.huntingGoodsList}" var="goods">
 											<a href="#{goods.goodsUrl}"> <p:repeat
 													value="#{goods.huntingGoodsImages}" var="goodsImage">
-													<p:graphicImage
-														value="#{goodsImage.goodsImageUrl}"
+													<p:graphicImage value="#{goodsImage.goodsImageUrl}"
 														style="width:75px;height:auto;max-height:75px;">
 													</p:graphicImage>
-													<!-- <p:graphicImage
-														value="#{timeLineController.convertGoodsIndivImg}"
-														style="width:75px;height:auto;max-height:75px;">
-														<f:param name="igGoodsImageId"
-															value="#{goodsImage.goodsImageId}" />
-													</p:graphicImage> -->
 												</p:repeat>
 											</a>
 										</p:repeat>
 									</div>
 								</div>
-							</p:repeat>
-						</div>
+							</div>
+						</p:repeat>
 					</h:form>
 				</div>
 				<!-- /.row -->
