@@ -28,50 +28,12 @@ body {
 	color: 	#000000;
 }
 
-.parent{
-  width: 250px;
-  margin: 10px 5px 0px;
-  padding: 10px 5px 0px;
-  display: -webkit-flex;
-  display: flex;
-  -webkit-align-items: center;
-  align-items: center;
-}
-.inner{
-  padding: 5px 5px 0px;
-  margin: 0 10px;
-  width: 240px;
-  display: inline-block;
-}
-
-.parent-goods{
-  width: 250px;
-  margin: 0px 5px;
-  padding: 5px;
-  display: -webkit-flex;
-  display: flex;
-  -webkit-align-items: center;
-  align-items: center;
-}
-.inner-goods{
-  padding: 0px 5px 0px;
-  margin: 0 10px;
-  width: 250px;
-  display: inline-block;
-}
-
-.timeLineCenter{
-  width: 250px;
-  text-align: center;
-}
-
 .center {
     text-align:center;
 }
 
 .center-timeline{
-  padding-bottom: 10px 0px 10px
-  width: 250px;
+  padding-bottom: 10px;
   text-align: center;
 }
 
@@ -120,18 +82,6 @@ color: #000000;
 font-family: Dancing-Bold;
 font-size: 32px;
 color: #000000;
-}
-
-.contain {
-    display: inline-block;
-    background-color: #ccc;
-    background-position: center center;
-    background-repeat: no-repeat;
-    margin: 5px;
-    width: 500px;
-    height: 500px;
-    border: 1px solid #ccc;
-    background-size: contain;
 }
 
 .userLimitedChar {

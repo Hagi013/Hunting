@@ -33,7 +33,8 @@ public class HuntingTimeLineRepository extends JpaDaoSupport<HuntingTimeLine, Hu
 		CriteriaQuery<HuntingTimeLine> query = cb.createQuery(HuntingTimeLine.class);
 		Root<HuntingTimeLine> r = query.from(HuntingTimeLine.class);
 		query.select(r)
-				.where(cb.equal(r.get(HuntingTimeLine_.huntingTimeLineId).get(HuntingTimeLineId_.userId), userId));
+				.where(cb.equal(r.get(HuntingTimeLine_.huntingTimeLineId).get(HuntingTimeLineId_.userId), userId))
+				.orderBy(cb.asc(r.get(HuntingTimeLine_.registeredDateTime)));
 		return em.createQuery(query).getResultList();
 	}
 

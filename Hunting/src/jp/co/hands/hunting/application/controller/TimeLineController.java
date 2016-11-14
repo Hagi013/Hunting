@@ -1,7 +1,6 @@
 package jp.co.hands.hunting.application.controller;
 
 import java.io.ByteArrayInputStream;
-import java.util.List;
 import java.util.Optional;
 
 import javax.enterprise.context.SessionScoped;
@@ -15,8 +14,10 @@ import javax.inject.Named;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
+import com.ocpsoft.pretty.faces.annotation.URLAction;
+import com.ocpsoft.pretty.faces.annotation.URLMapping;
+
 import jp.co.hands.hunting.application.helper.JsfManagedObjectFetcher;
-import jp.co.hands.hunting.application.helper.fetcher.FetchPictureHelper;
 import jp.co.hands.hunting.controller.BaseController;
 import jp.co.hands.hunting.entity.model.impl.HuntingGoods;
 import jp.co.hands.hunting.entity.model.impl.HuntingModel;
@@ -24,6 +25,7 @@ import jp.co.hands.hunting.entity.model.impl.HuntingTimeLine;
 import jp.co.hands.hunting.entity.model.impl.HuntingTimeLineId;
 import jp.co.hands.hunting.repository.impl.HuntingGoodsImageRepository;
 import jp.co.hands.hunting.repository.impl.HuntingGoodsRepository;
+import jp.co.hands.hunting.repository.impl.HuntingModelRepository;
 import jp.co.hands.hunting.repository.impl.HuntingTimeLineRepository;
 import lombok.Getter;
 import lombok.Setter;
@@ -33,6 +35,9 @@ import lombok.Setter;
 @SessionScoped
 public class TimeLineController extends BaseController {
 
+	@Inject
+	private HuntingModelRepository huntingModelRepository;
+	
 	@Inject
 	private HuntingTimeLineRepository huntingTimeLineRepository;
 	
@@ -45,12 +50,14 @@ public class TimeLineController extends BaseController {
 	@Getter @Setter
 	private HuntingModel huntingModel;
 	
+	@Getter @Setter
+	private String targetModelId;
 	
 	
 	/**
 	 * タイムラインページへの遷移メソッド
-	 * @param targetModel model選択ページで指定されたmodelインスタンス
-	 * @return　string huntingTimeLineページ　
+	 * @param  model選択ページで指定されたmodelインスタンス
+	 * @return　huntingTimeLineページ　
 	 */
 	public String moveToTimeLinePage(HuntingModel targetModel) {
 
@@ -59,12 +66,41 @@ public class TimeLineController extends BaseController {
 			System.out.println("タイムライン画像のURL"+ target.getTimeLineImageUrl());
 		}*/
 		if (Optional.ofNullable(huntingModel).isPresent()) {
-			return redirectTo("/huntingTimeLine");
+			return redirectTo("/huntingTimeLine")+"&id=" + huntingModel.getUserId();
+			//return "huntingTimeLine.xhtml?faces-redirect=true&id=" +huntingModel.getUserId();
 		}
 		addMessage(FacesMessage.SEVERITY_ERROR, "", "選択が上手く出来ていません。");
 		return null;
 	}
 
+	/**
+	 * PrettyFacesよりID指定のURLで入ってきた場合の処理
+	 * @param モデルID
+	 * 
+	*/
+	public void recieveDirectUrl() {
+		
+		if (!Optional.ofNullable(targetModelId).isPresent()) {
+			addMessage(FacesMessage.SEVERITY_ERROR, "", "不正なURLです。");
+			return;
+		}
+		
+		if (!Optional.ofNullable(huntingModelRepository.findByKey(targetModelId)).isPresent()) {
+			addMessage(FacesMessage.SEVERITY_ERROR, "", "存在しないmidです。");
+			return;
+		}
+		
+		huntingModel = huntingModelRepository.findByKey(targetModelId);
+	
+		if (Optional.ofNullable(huntingModel.getUserId()).isPresent()) {
+			addMessage(FacesMessage.SEVERITY_ERROR, "", "モデルが存在しません。");
+			return;
+		}
+
+		return;
+
+	}	
+	
 	/**
 	 * タイムライン画像をレンダリングするメソッド(DBより取得した画像データのバイナリーをStreamedContentに変換して返す)
 	 * 
