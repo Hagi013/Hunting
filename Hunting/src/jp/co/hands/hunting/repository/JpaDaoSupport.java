@@ -6,14 +6,12 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
-import javax.persistence.PersistenceUnit;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 
 import jp.co.hands.hunting.entity.model.BaseEntity;
 
-public class JpaDaoSupport<T extends BaseEntity, K extends Serializable> {
+public class JpaDaoSupport<T extends BaseEntity, K extends Serializable> implements Serializable {
 
 	protected Class<T> targetEntity;
 
