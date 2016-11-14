@@ -47,12 +47,10 @@ public class AdminRegistController extends BaseController {
 	@Inject
 	private HuntingGoodsRepository huntingGoodsRepository;
 
-	@Getter
-	@Setter
+	@Getter @Setter
 	private HuntingModel huntingModel;
 
-	@Getter
-	@Setter
+	@Getter @Setter
 	private List<HuntingModel> huntingModelList;
 
 	@Getter
