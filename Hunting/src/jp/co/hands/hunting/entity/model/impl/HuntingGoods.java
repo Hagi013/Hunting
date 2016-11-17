@@ -14,6 +14,7 @@ import javax.persistence.JoinColumns;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.PostPersist;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -61,6 +62,7 @@ public class HuntingGoods extends BaseEntity {
 	
 	@OneToMany(targetEntity=HuntingGoodsImage.class, cascade=CascadeType.ALL, mappedBy="huntingGoods" )
 	@JoinColumn(name="goods_image_id")
+	@OrderBy("registeredDateTime DESC")
 	private List<HuntingGoodsImage> huntingGoodsImages;
 	
 	@PostPersist

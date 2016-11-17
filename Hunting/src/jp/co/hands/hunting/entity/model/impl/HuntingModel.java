@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -55,6 +56,7 @@ public class HuntingModel extends BaseEntity{
 	
 	@OneToMany(targetEntity=HuntingTimeLine.class, mappedBy="huntingModel", cascade=CascadeType.ALL)
 	@JoinColumn(name="timeline_id")
+	@OrderBy("registeredDateTime DESC")
 	private List<HuntingTimeLine> huntingTimeLines;
 
 		

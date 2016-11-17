@@ -13,6 +13,7 @@ import javax.persistence.JoinColumns;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -62,6 +63,7 @@ public class HuntingTimeLine extends BaseEntity {
 	
 	@OneToMany(targetEntity = HuntingGoods.class, mappedBy="huntingTimeLine", cascade=CascadeType.ALL)
 	@JoinColumn(name="goods_id")
+	@OrderBy("registeredDateTime DESC")
 	private List<HuntingGoods> huntingGoodsList;
 
 }

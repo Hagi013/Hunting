@@ -44,6 +44,8 @@ public class JpaDaoSupport<T extends BaseEntity, K extends Serializable> impleme
 	public void save(T targetEntity, K key) {
 		if (findByKey(key) == null) {
 			persist(targetEntity);
+			em.flush();
+			em.clear();
 		} else {
 			System.out.println("dupuliate key -->" + key);
 		}
@@ -60,6 +62,8 @@ public class JpaDaoSupport<T extends BaseEntity, K extends Serializable> impleme
 	public void delete(K key) {
 		if (findByKey(key) != null) {
 			em.remove(findByKey(key));
+			em.flush();
+			em.clear();
 		} else {
 			System.out.println(key + " has already been deleted or not found.");
 		}
@@ -68,8 +72,12 @@ public class JpaDaoSupport<T extends BaseEntity, K extends Serializable> impleme
 	public void updata(T targetEntity, K key) {
 		if (findByKey(key) != null) {
 			merge(targetEntity);
+			em.flush();
+			em.clear();
 		} else {
 			persist(targetEntity);
+			em.flush();
+			em.clear();
 		}
 	}
 
