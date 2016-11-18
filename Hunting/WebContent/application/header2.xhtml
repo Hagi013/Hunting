@@ -26,7 +26,10 @@
 						class="icon-bar"></span>
 				</button>
 				<div class="centerLogo">
-					<a class="navbar-brand" href="#">Hunting</a>
+					<h:form>
+						<h:commandLink class="navbar-brand"
+							action="#{timeLineController.moveToLandingPage}" value="Hunting" />
+					</h:form>
 				</div>
 			</div>
 			<!-- /.navbar-collapse -->

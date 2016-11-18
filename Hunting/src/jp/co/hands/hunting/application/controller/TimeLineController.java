@@ -102,6 +102,16 @@ public class TimeLineController extends BaseController {
 	}	
 	
 	/**
+	 * 状態を初期化してhuntingUser.xhtml画面に戻る
+	 * @return パス	
+	*/
+	public String moveToLandingPage() {
+		huntingModel = HuntingModel.builder().build();
+		return redirectTo("/huntingUser");
+	}
+	
+	
+	/**
 	 * タイムライン画像をレンダリングするメソッド(DBより取得した画像データのバイナリーをStreamedContentに変換して返す)
 	 * 
 	 * @return　DBから取得した画像データ
