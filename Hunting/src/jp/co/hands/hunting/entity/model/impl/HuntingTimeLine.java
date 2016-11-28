@@ -39,6 +39,7 @@ public class HuntingTimeLine extends BaseEntity {
 	@EmbeddedId @Getter @Setter
 	private HuntingTimeLineId huntingTimeLineId;
 	
+	@Lob
 	@Column(name="link")
 	private String link;
 	

@@ -55,7 +55,7 @@
 								<th>タイムラインID</th>
 								<th>タイムラインの写真のURL</th>
 								<th>コメント</th>
-								<th>登録時間</th>
+								<th>リンク</th>
 							</tr>
 							<tr>
 								<td><h:outputLabel
@@ -70,8 +70,11 @@
 								<td><p:inputText placeholder="コメント"
 										value="#{adminUpdateController.targetTimeLine.text}" /></td>
 
-								<td><p:inputText placeholder="登録時間"
-										value="#{adminUpdateController.targetTimeLine.createdTime}" /></td>
+								<td><p:inputText placeholder="リンク"
+										value="#{adminUpdateController.targetTimeLine.link}" /></td>
+
+								<!-- <td><p:inputText placeholder="登録時間"
+										value="#{adminUpdateController.targetTimeLine.createdTime}" /></td> -->
 							</tr>
 						</Table>
 						<p:commandButton class="btn btn-primary btn-sm" value="Register"
