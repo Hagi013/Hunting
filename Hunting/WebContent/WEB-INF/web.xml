@@ -17,7 +17,7 @@
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>ERROR</dispatcher>
 	</filter-mapping>
-	
+
 	<servlet>
 		<servlet-name>Faces Servlet</servlet-name>
 		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
@@ -38,11 +38,6 @@
 	<context-param>
 		<param-name>primefaces.THEME</param-name>
 		<param-value>bootstrap</param-value>
-	</context-param>
-
-	<context-param>
-		<param-name>com.ocpsoft.pretty.BASE_PACKAGES</param-name>
-		<param-value>com.example.myapp,com.ocpsoft</param-value>
 	</context-param>
 
 	<context-param>

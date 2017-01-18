@@ -41,8 +41,9 @@
 							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 center">
 								<h:link outcome="huntingTimeLine?mid=#{model.userId}">
 									<p:graphicImage class="img-circle"
-										value="#{model.profilePictureUrl}"
+										value="#{modelListController.imagePath}"
 										style="width:auto;height:auto;max-width:80px;max-height:80px;">
+										<f:param name="modelImg" value="#{model.profilePictureUrl}" />
 									</p:graphicImage>
 								</h:link>
 								<h3>

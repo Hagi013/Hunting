@@ -59,33 +59,33 @@
 								<th>商品の値段</th>
 							</tr>
 							<tr>
-								<td><h:outputLabel value="#{adminRegistController.huntingGoods.huntingTimeLine.huntingTimeLineId.userId}" /></td>
+								<td><h:outputLabel value="#{adminRegisterController.huntingGoods.huntingTimeLine.huntingTimeLineId.userId}" /></td>
 
-								<td><h:outputLabel value="#{adminRegistController.huntingGoods.huntingTimeLine.huntingTimeLineId.timeLineId}" /></td>
+								<td><h:outputLabel value="#{adminRegisterController.huntingGoods.huntingTimeLine.huntingTimeLineId.timeLineId}" /></td>
 
 								<td><p:inputText id="goods_image_url"
 										placeholder="GoodsUrl"
-										value="#{adminRegistController.goodsImageUrl}" /></td>
+										value="#{adminRegisterController.goodsImageUrl}" /></td>
 
 								<td><p:inputText id="goods_name" placeholder="GoodsName"
-										value="#{adminRegistController.huntingGoods.goodsName}" /></td>
+										value="#{adminRegisterController.huntingGoods.goodsName}" /></td>
 
 								<td><p:inputText id="goods_url" placeholder="GoodsUrl"
-										value="#{adminRegistController.huntingGoods.goodsUrl}" /></td>
+										value="#{adminRegisterController.huntingGoods.goodsUrl}" /></td>
 
 								<td><p:inputText id="goods_price" placeholder="GoodsPrice"
-										value="#{adminRegistController.huntingGoods.goodsPrice}" /></td>
+										value="#{adminRegisterController.huntingGoods.goodsPrice}" /></td>
 
 							</tr>
 						</Table>
 						<p:commandButton class="btn btn-primary btn-sm" value="Register"
-							action="#{adminRegistController.registerGoods}" ajax="false">
+							action="#{adminRegisterController.registerGoods}" ajax="false">
 						</p:commandButton>
 					</h:form>
 					<hr />
 					<h:outputLabel value="更新" />
 					<h:form>
-						<p:repeat value="#{adminRegistController.huntingGoodsList}"
+						<p:repeat value="#{adminRegisterController.huntingGoodsList}"
 							var="huntingGoods">
 							<div
 								class="row col-xs-12 col-sm-12 col-md-12 col-lg-12 center-timeline">

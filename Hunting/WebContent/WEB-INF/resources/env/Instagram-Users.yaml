@@ -1,0 +1,9 @@
+endPointHost: api.instagram.com/
+endPointPath: v1/users/
+mediaPath: media/
+searchPath: search/
+searchSelf: self/
+searchLiked: liked/
+searchRecent: recent/
+
+

@@ -1,0 +1,3 @@
+endPoints: https://api.instagram.com/oauth/access_token
+grantType: authorization_code
+redirectUri: http://localhost:8080/Hunting/IGOAuthCallBackServlet

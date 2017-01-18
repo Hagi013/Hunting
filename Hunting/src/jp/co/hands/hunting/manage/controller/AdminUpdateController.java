@@ -9,6 +9,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.Part;
 
 import jp.co.hands.hunting.controller.BaseController;
 import jp.co.hands.hunting.entity.model.impl.HuntingGoods;
@@ -16,6 +17,7 @@ import jp.co.hands.hunting.entity.model.impl.HuntingGoodsImage;
 import jp.co.hands.hunting.entity.model.impl.HuntingModel;
 import jp.co.hands.hunting.entity.model.impl.HuntingTimeLine;
 import jp.co.hands.hunting.entity.model.impl.HuntingTimeLineId;
+import jp.co.hands.hunting.manage.domain.model.AdminModelUpdateBl;
 import jp.co.hands.hunting.repository.impl.HuntingTimeLineRepository;
 import jp.co.hands.hunting.repository.impl.HuntingGoodsImageRepository;
 import jp.co.hands.hunting.repository.impl.HuntingGoodsRepository;
@@ -27,6 +29,9 @@ import lombok.Setter;
 @ManagedBean(name="adminUpdateController")
 @SessionScoped
 public class AdminUpdateController extends BaseController {
+	
+	@Inject
+	private AdminModelUpdateBl adminModelUpdateBl;
 	
 	@Inject
 	private HuntingModelRepository huntingModelRepository;
@@ -55,6 +60,10 @@ public class AdminUpdateController extends BaseController {
 	@Getter @Setter
 	private HuntingGoodsImage targetGoodsImage;
 	
+	@Getter @Setter
+	private Part uploadedFile;
+
+	
 	
 	@PostConstruct
 	public void init() {
@@ -76,23 +85,8 @@ public class AdminUpdateController extends BaseController {
 	*/
 	public void updateModel() {
 		
-		// 更新できる状態になっているか確認（targetModelが問題なく保持されているか）
-		if(!Optional.ofNullable(targetModel.getUserId()).isPresent()) {
-			addMessage(FacesMessage.SEVERITY_ERROR, "", "もう一度最初からやり直してください。");
-			return;
-		}
-		
-		String userId = targetModel.getUserId();
-		
-		// DB内にデータがそもそも存在している?
-		if(!Optional.ofNullable(huntingModelRepository.findByKey(userId)).isPresent()) {
-			addMessage(FacesMessage.SEVERITY_ERROR, "", "すでにデータが削除されています。");
-		}
-		
-		// データの更新
-		huntingModelRepository.updata(targetModel, userId);		
-		addMessage(FacesMessage.SEVERITY_INFO, "", "更新が完了しました。");
-		
+		adminModelUpdateBl.updateModel(targetModel, uploadedFile);
+				
 	}
 	
 	/**

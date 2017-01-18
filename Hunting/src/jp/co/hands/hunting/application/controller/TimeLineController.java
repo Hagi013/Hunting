@@ -14,10 +14,7 @@ import javax.inject.Named;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
-import com.ocpsoft.pretty.faces.annotation.URLAction;
-import com.ocpsoft.pretty.faces.annotation.URLMapping;
-
-import jp.co.hands.hunting.application.helper.JsfManagedObjectFetcher;
+import jp.co.hands.hunting.helper.JsfManagedObjectFetcher;
 import jp.co.hands.hunting.controller.BaseController;
 import jp.co.hands.hunting.entity.model.impl.HuntingGoods;
 import jp.co.hands.hunting.entity.model.impl.HuntingModel;

@@ -1,19 +1,9 @@
 package jp.co.hands.hunting.controller;
 
-import java.io.ByteArrayInputStream;
 import java.io.Serializable;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.faces.event.PhaseId;
-
-import org.primefaces.model.DefaultStreamedContent;
-import org.primefaces.model.StreamedContent;
-
-import jp.co.hands.hunting.application.helper.JsfManagedObjectFetcher;
-import jp.co.hands.hunting.entity.model.BaseEntity;
-import jp.co.hands.hunting.entity.model.impl.HuntingModel;
-import jp.co.hands.hunting.repository.JpaDaoSupport;
 
 public class BaseController implements Serializable {
 

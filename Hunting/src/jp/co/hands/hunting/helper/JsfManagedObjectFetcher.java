@@ -43,7 +43,7 @@ public final class JsfManagedObjectFetcher {
 		FacesContext con = FacesContext.getCurrentInstance();
 		ExternalContext exCon = con.getExternalContext();
 		Map<String, String> map = exCon.getRequestParameterMap();
-		
+		System.out.println("map:   " + map);
 		return map.get(entityName);
 	}
 	

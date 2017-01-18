@@ -1,7 +1,6 @@
-package jp.co.hands.hunting.manage.instagram.api.helper;
+package jp.co.hands.hunting.helper;
 
 import java.io.IOException;
-import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 

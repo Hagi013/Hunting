@@ -22,7 +22,7 @@ public final class FetchPictureHelper {
 		if (con.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE) {
 			// HTMLのレンダリングフェースなのでPrimeFaces用の特殊なファイルURLを返す
 			return new DefaultStreamedContent();
-		} 
+		}
 		ByteArrayInputStream out = new ByteArrayInputStream(byteImage);
 		DefaultStreamedContent ds = new DefaultStreamedContent(out);
 		return ds;

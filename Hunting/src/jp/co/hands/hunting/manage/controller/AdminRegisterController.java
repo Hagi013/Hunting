@@ -1,6 +1,5 @@
 package jp.co.hands.hunting.manage.controller;
 
-import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -8,35 +7,29 @@ import java.util.Optional;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.faces.event.PhaseId;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.Part;
 
-import org.primefaces.model.DefaultStreamedContent;
-import org.primefaces.model.StreamedContent;
 
-import jp.co.hands.hunting.application.helper.JsfManagedObjectFetcher;
 import jp.co.hands.hunting.controller.BaseController;
 import jp.co.hands.hunting.entity.model.impl.HuntingGoods;
 import jp.co.hands.hunting.entity.model.impl.HuntingGoodsImage;
 import jp.co.hands.hunting.entity.model.impl.HuntingModel;
 import jp.co.hands.hunting.entity.model.impl.HuntingTimeLine;
 import jp.co.hands.hunting.entity.model.impl.HuntingTimeLineId;
-import jp.co.hands.hunting.helper.fetcher.FetchPictureHelper;
-import jp.co.hands.hunting.manage.helper.UploadFileHundler;
+import jp.co.hands.hunting.helper.FileHundler;
+import jp.co.hands.hunting.manage.domain.model.AdminModelRegisterBl;
 import jp.co.hands.hunting.repository.impl.HuntingGoodsRepository;
 import jp.co.hands.hunting.repository.impl.HuntingModelRepository;
 import jp.co.hands.hunting.repository.impl.HuntingTimeLineRepository;
 import lombok.Getter;
 import lombok.Setter;
 
-@Named(value = "adminRegistController")
-@ManagedBean(name = "adminRegistController")
+@Named(value = "adminRegisterController")
+@ManagedBean(name = "adminRegisterController")
 @SessionScoped
-public class AdminRegistController extends BaseController {
+public class AdminRegisterController extends BaseController {
 
 	@Inject
 	private HuntingModelRepository huntingModelRepository;
@@ -46,43 +39,38 @@ public class AdminRegistController extends BaseController {
 
 	@Inject
 	private HuntingGoodsRepository huntingGoodsRepository;
-
+	
+	@Inject
+	AdminModelRegisterBl adminModelRegisterBl;
+	
 	@Getter @Setter
 	private HuntingModel huntingModel;
 
 	@Getter @Setter
 	private List<HuntingModel> huntingModelList;
 
-	@Getter
-	@Setter
+	@Getter @Setter
 	private HuntingTimeLine huntingTimeLine;
 
-	@Getter
-	@Setter
+	@Getter @Setter
 	private List<HuntingTimeLine> huntingTimeLineList;
 
-	@Getter
-	@Setter
+	@Getter @Setter
 	private HuntingGoods huntingGoods;
 
-	@Getter
-	@Setter
+	@Getter @Setter
 	private List<HuntingGoods> huntingGoodsList;
 	
-	@Getter
-	@Setter
+	@Getter @Setter
 	private HuntingGoodsImage huntingGoodsImage;
 
-	@Getter
-	@Setter
+	@Getter @Setter
 	private List<HuntingGoodsImage> huntingGoodsImageList;
 
-	@Getter
-	@Setter
+	@Getter @Setter
 	private Part uploadedFile;
 
-	@Getter
-	@Setter
+	@Getter @Setter
 	private String goodsImageUrl;
 	
 	/** method area */
@@ -119,40 +107,10 @@ public class AdminRegistController extends BaseController {
 	 *
 	 */
 	public void registerModel() {
-
-		HuntingModel targetModel = this.huntingModel;
-
-		// 不要となる予定
-		Part uploadedFile = this.uploadedFile;
-
-		if (this.huntingModel.getUserId() == null) {
-			addMessage(FacesMessage.SEVERITY_ERROR, "", "UserIdを入力してください。");
-			System.out.println("UserId" + this.huntingModel.getUserId());
-			return;
-		}
 		
-		// 不要となる予定
-		if (Optional.ofNullable(uploadedFile).isPresent()) {
-			targetModel.setProfilePicture(UploadFileHundler.fileHundle(uploadedFile));
-			System.out.println("変えました");
-			// targetModel = uploadFileHundle(targetModel, uploadedFile);
-		}
-
-		// 新規同ＩＤにてデータが登録されていた場合
-		if (!Optional.ofNullable(huntingModelRepository.findByKey(targetModel.getUserId())).isPresent()) {
-
-			// 表示名が入力されていなければ入力してもらう。
-			if (targetModel.getDisplayName() == null || targetModel.getDisplayName().isEmpty()) {
-				addMessage(FacesMessage.SEVERITY_ERROR, "", "表示名を入力してください。");
-				return;
-			}
-			huntingModelRepository.save(targetModel, targetModel.getUserId());
-			addMessage(FacesMessage.SEVERITY_INFO, "", "正常に登録が完了しました。");
-		} else {
-			// すでにIDが登録されていた場合
-			huntingModelRepository.updata(targetModel, targetModel.getUserId());
-			addMessage(FacesMessage.SEVERITY_INFO, "", "データの更新が完了しました。");
-		}
+		adminModelRegisterBl.registerModel(huntingModel, uploadedFile);
+		huntingModel = HuntingModel.builder().build();
+		
 	}
 
 	/**
@@ -202,7 +160,7 @@ public class AdminRegistController extends BaseController {
 		//　不要となる予定
 		Part uploadedFile = this.uploadedFile;
 		if (Optional.ofNullable(uploadedFile).isPresent()) {
-			huntingTimeLine.setTimeLineImage(UploadFileHundler.fileHundle(uploadedFile));
+			huntingTimeLine.setTimeLineImage(FileHundler.fileConvToByte(uploadedFile));
 		}
 		
 		huntingTimeLineRepository.save(huntingTimeLine, huntingTimeLine.getHuntingTimeLineId());
@@ -309,7 +267,7 @@ public class AdminRegistController extends BaseController {
 
 		// 画像をbyte配列へ変換し、登録予定のhuntingGoodsへセットする。
 		if(Optional.ofNullable(this.uploadedFile).isPresent()) {
-			huntingGoodsImage.setGoodsImageData(UploadFileHundler.fileHundle(this.uploadedFile));
+			huntingGoodsImage.setGoodsImageData(FileHundler.fileConvToByte(this.uploadedFile));
 		}
 		
 		// 画像のURLを登録予定のhuntingGoodsへセットする。

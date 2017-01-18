@@ -6,7 +6,7 @@ import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 import jp.co.hands.hunting.entity.model.BaseEntity_;
 
-@Generated(value="Dali", date="2016-10-18T01:13:27.731+0900")
+@Generated(value="Dali", date="2017-01-01T00:12:48.990+0900")
 @StaticMetamodel(HuntingModel.class)
 public class HuntingModel_ extends BaseEntity_ {
 	public static volatile SingularAttribute<HuntingModel, String> userId;

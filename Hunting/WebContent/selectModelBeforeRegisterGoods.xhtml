@@ -52,11 +52,11 @@
 				<hr />
 				<div class="row">
 					<h:form>
-						<ui:repeat value="#{adminRegistController.huntingModelList}"
+						<ui:repeat value="#{adminRegisterController.huntingModelList}"
 							var="model">
 							<div class="col-xs-6 col-sm-6 col-md-3 col-lg-2">
 								<h:commandLink
-									action="#{adminRegistController.moveToTimeLinePage(model)}">
+									action="#{adminRegisterController.moveToTimeLinePage(model)}">
 									<p:graphicImage class="img-circle img-responsive img-center"
 										value="#{model.profilePictureUrl}"
 										style="width:100%;height:auto;max-height:300px;">

@@ -58,17 +58,17 @@
 							</tr>
 							<tr>
 								<td><p:inputText id="userId" placeholder="UserId"
-										value="#{adminRegistController.huntingModel.userId}" /></td>
+										value="#{adminRegisterController.huntingModel.userId}" /></td>
 								<td><p:inputText id="displayName" placeholder="表示名"
-										value="#{adminRegistController.huntingModel.displayName}" /></td>
+										value="#{adminRegisterController.huntingModel.displayName}" /></td>
 								<td><p:inputText id="modelImageUrl" placeholder="画像のURL"
-										value="#{adminRegistController.huntingModel.profilePictureUrl}" /></td>
+										value="#{adminRegisterController.huntingModel.profilePictureUrl}" /></td>
 								<td><h:inputFile id="modelImage"
-										value="#{adminRegistController.uploadedFile}" /></td>
+										value="#{adminRegisterController.uploadedFile}" /></td>
 							</tr>
 						</Table>
 						<p:commandButton class="btn btn-primary btn-sm" value="Register"
-							action="#{adminRegistController.registerModel}" ajax="false">
+							action="#{adminRegisterController.registerModel}" ajax="false">
 						</p:commandButton>
 					</h:form>
 					<hr />

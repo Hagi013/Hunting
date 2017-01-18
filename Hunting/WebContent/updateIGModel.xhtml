@@ -53,7 +53,8 @@
 							<tr>
 								<th>モデルID</th>
 								<th>表示名</th>
-								<th>写真のURL</th>
+								<th>画像のURL</th>
+								<th>画像</th>
 							</tr>
 							<tr>
 								<td><p:outputLabel
@@ -62,6 +63,8 @@
 										value="#{adminUpdateController.targetModel.displayName}" /></td>
 								<td><p:inputText placeholder="画像のURL"
 										value="#{adminUpdateController.targetModel.profilePictureUrl}" /></td>
+								<td><h:inputFile
+										value="#{adminUpdateController.uploadedFile}" /></td>
 							</tr>
 						</Table>
 						<p:commandButton class="btn btn-primary btn-sm" value="Update"
